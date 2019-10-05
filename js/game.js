@@ -1,9 +1,3 @@
-var outfit = {
-    business: "wizard",
-    cowboy: "wizard",
-    police: "banquier"
-};
-
 var game = {
     onload: function() {
         if (!me.video.init(game.width, game.height, {
@@ -41,15 +35,16 @@ var game = {
 
     levels: [
         {
-            targetOutfit: outfit.business
+            targetOutfit: "elvis"
         },
         {
-            targetOutfit: outfit.cowboy
+            targetOutfit: "banquier"
         }
     ],
 
     parameters: {
-        maxVelocity: 0.1,
+        maxPlayerVelocity: 0.005,
+        maxPedestrianVelocity: 0.002,
         collisionDistance: 10
     }
 }

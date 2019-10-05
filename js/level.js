@@ -1,6 +1,6 @@
 game.Level = me.Container.extend({
     init: function(targetOutfit, oldPlayer) {
-        this._super(me.Container, "init", [0, 0]);
+        this._super(me.Container, "init", [0, 0, game.width, game.height]);
         this.targetOutfit = targetOutfit;
         this.anchorPoint = { x: 0, y: 0 };
 
@@ -34,6 +34,8 @@ game.Level = me.Container.extend({
             this.generatePoliceman();
         }
 
+        // TODO: sort by y coordinates
+
         // collisions
         for (let human of this.humans) {
             if (this.player.distanceTo(human) <= game.parameters.collisionDistance) {
@@ -58,7 +60,8 @@ game.Level = me.Container.extend({
     },
 
     generatePedestrian: function() {
-        let pedestrian = new game.Pedestrian();
+        // TODO: generate using probabilites
+        let pedestrian = new game.Pedestrian("elvis", "wizard", "banquier");
         this.humans.push(pedestrian);
         this.addChild(pedestrian);
     },
