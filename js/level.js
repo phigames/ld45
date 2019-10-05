@@ -15,12 +15,16 @@ game.Level = me.Container.extend({
         this.pedestrianTime = 0;
         this.policemanInterval = 4000;
         this.policemanTime = 0;
+        this.timePassed = 0;
+        this.totalTime = 30 * 1000;
     },
 
     update: function(dt) {
         this._super(me.Container, "update", [dt]);
         this.pedestrianTime += dt;
         this.policemanTime += dt;
+
+        // spawns
         if (this.pedestrianTime >= this.pedestrianInterval) {
             this.pedestrianTime -= this.pedestrianInterval;
             this.generatePedestrian();
@@ -37,12 +41,19 @@ game.Level = me.Container.extend({
             }
         }
 
-        // winning condition
+        // win condition
         if (this.player.hair === this.targetOutfit.hair &&
             this.player.jacket === this.targetOutfit.jacket &&
             this.player.pants === this.targetOutfit.pants) {
             me.state.current().nextLevel();
         }
+
+        // lose condition
+        this.timePassed += dt;
+        if (this.timePassed >= this.totalTime) {
+            me.state.current().gameOver();
+        }
+
         return true;
     },
 

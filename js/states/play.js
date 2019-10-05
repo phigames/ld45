@@ -19,6 +19,10 @@ game.PlayStage = me.Stage.extend({
         me.game.world.reset();
         me.game.world.addChild(new me.ColorLayer("background", "#000000"), 0)
         me.game.world.addChild(this.currentLevel);
+    },
+
+    gameOver: function() {
+        // TODO: game over screen
     }
 
 });
