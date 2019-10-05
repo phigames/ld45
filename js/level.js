@@ -38,8 +38,8 @@ game.Level = me.Container.extend({
         }
 
         // winning condition
-        if (this.player.hat === this.targetOutfit.hat &&
-            this.player.shirt === this.targetOutfit.shirt &&
+        if (this.player.hair === this.targetOutfit.hair &&
+            this.player.jacket === this.targetOutfit.jacket &&
             this.player.pants === this.targetOutfit.pants) {
             me.state.current().nextLevel();
         }

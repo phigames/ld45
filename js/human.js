@@ -1,15 +1,11 @@
 game.Human = me.Container.extend({
-    init: function(hat, shirt, pants) {
-        let character = new me.Sprite(0, 0, { image: "naked_RAW" });
-        character.pos.x = character.width/2
-        character.pos.y = character.height/2
+    init: function(hair, jacket, pants) {
+        
         this._super(me.Container, "init", [0, 0, character.width, character.height]);
         //this.anchorPoint = { x: 0, y: 0 };
-        this.hat = hat;
-        this.shirt = shirt;
-        this.pants = pants;
+        this.changeOutfit(hair, jacket, pants)
         this.velocity = new me.Vector2d(0, 0);
-        this.addChild(character)
+
 
     },
 
@@ -17,6 +13,21 @@ game.Human = me.Container.extend({
         this._super(me.Container, "update", [dt]);
         this.pos.add(new me.Vector2d(this.velocity.x * dt, this.velocity.y * dt));
         return true;
+    },
+
+    changeOutfit: function(hair, jacket, pants) {
+        this.clear
+        this.hair = hair;
+        this.jacket = jacket;
+        this.pants = pants;
+        let character = new me.Sprite(0, 0, { image: "naked_RAW" });
+        character.pos.x = character.width/2
+        character.pos.y = character.height/2
+        this.addChild(character)
+        this.addChild(new me.Sprite(0, 0, { image: hair+"_hair"}))
+        this.addChild( new me.Sprite(0, 0, { image: hair+""}))
+
+
     }
 });
 
@@ -31,6 +42,10 @@ game.Policeman = game.Human.extend({
     update: function(dt) {
         this._super(game.Human, "update", [dt]);
         return true;
+    },
+
+    onCollide: function(player) {
+        
     }
 });
 
