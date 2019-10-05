@@ -1,12 +1,16 @@
 game.Human = me.Container.extend({
     init: function(hat, shirt, pants) {
-        this._super(me.Container, "init", [0, 0]);
-        this.anchorPoint = { x: 0, y: 0 };
+        let character = new me.Sprite(0, 0, { image: "naked_RAW" });
+        character.pos.x = character.width/2
+        character.pos.y = character.height/2
+        this._super(me.Container, "init", [0, 0, character.width, character.height]);
+        //this.anchorPoint = { x: 0, y: 0 };
         this.hat = hat;
         this.shirt = shirt;
         this.pants = pants;
         this.velocity = new me.Vector2d(0, 0);
-        this.addChild(new me.Sprite(0, 0, { image: "naked_RAW", anchorPoint: { x: 0, y: 0 }}));
+        this.addChild(character)
+
     },
 
     update: function(dt) {
@@ -36,13 +40,32 @@ game.Pedestrian = game.Human.extend({
         this._super(game.Human, "init", [game.outfit.cowboy,
                                         game.outfit.business,
                                         game.outfit.cowboy])
+                                        console.log(Math.random())
+        this.velocity = new me.Vector2d(Math.random(), Math.random()).scale(game.parameters.maxVelocity)
+        this.angle = Math.PI/6
     },
     
+    
     update: function(dt) {
+        let randomX = Math.random();
+        let randomY = Math.random();
+        this.angle += 0.01
+        
+        let change_direction = Math.random();
         this._super(game.Human, "update", [dt]);
+        if (change_direction <= 0.03) {
+            this.angle = this.angle - Math.PI/8
+            //this.angle = -Math.PI * Math.random()
+            //this.velocity = new me.Vector2d(randomX, randomY).normalize().scale(game.parameters.maxVelocity)
+        }
+       // else if (change_direction >= 0.97) {
+       //     this.angle = Math.PI * Math.random()
+       // }
+        this.velocity = new me.Vector2d(Math.cos(this.angle), Math.sin(this.angle)).normalize().scale(game.parameters.maxVelocity)
         return true;
-    }
-});
+        }
+    });
+
 
 game.Player = game.Human.extend({
     init: function() {
@@ -66,7 +89,19 @@ game.Player = game.Human.extend({
         }
         this.velocity = new me.Vector2d(velX, velY).normalize().scale(game.parameters.maxVelocity);
         this._super(game.Human, "update", [dt])
-
+        
+        if (this.pos.x < 0) {
+            this.pos.x = 0
+        }
+        if (this.pos.x > game.width) {
+            this.pos.x = game.width-1
+        }
+        if (this.pos.y < 0) {
+            this.pos.y = 0
+        }
+        if (this.pos.y > game.height) {
+            this.pos.y = game.height-1
+        }
         return true;
     }
 

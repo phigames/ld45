@@ -3,6 +3,7 @@ game.Level = me.Container.extend({
         this._super(me.Container, "init", [0, 0]);
         this.targetOutfit = targetOutfit;
         this.anchorPoint = { x: 0, y: 0 };
+
         if (oldPlayer === undefined) {
             this.player = new game.Player();
         } else {

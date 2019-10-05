@@ -49,7 +49,7 @@ var game = {
     ],
 
     parameters: {
-        maxVelocity: 1,
+        maxVelocity: 0.1,
         collisionDistance: 10
     }
 }
