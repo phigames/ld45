@@ -1,10 +1,10 @@
 {
-  "short_name": "",
-  "name": "",
+  "short_name": "ld45",
+  "name": "ld45",
   "orientation": "landscape",
   "developer": {
     "name": "",
-    "url": ""
+    "url": "https://github.com/phigames"
   },
   "start_url": "./index.html",
   "display": "fullscreen",

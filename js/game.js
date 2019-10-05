@@ -1,6 +1,6 @@
 var game = {
     onload: function() {
-        if (!me.video.init(640, 480, {
+        if (!me.video.init(game.width, game.height, {
             wrapper : "screen",
             // TODO check webgl compatibility
             renderer : me.video.CANVAS,
@@ -19,5 +19,21 @@ var game = {
     onloaded: function() {
         me.state.set(me.state.PLAY, new game.PlayStage());
         me.state.change(me.state.PLAY);
+
+        me.input.bindKey(me.input.KEY.LEFT, "left");
+        me.input.bindKey(me.input.KEY.A, "left");
+        me.input.bindKey(me.input.KEY.RIGHT, "right");
+        me.input.bindKey(me.input.KEY.D, "right");
+        me.input.bindKey(me.input.KEY.DOWN, "down");
+        me.input.bindKey(me.input.KEY.S, "down");
+        me.input.bindKey(me.input.KEY.UP, "up");
+        me.input.bindKey(me.input.KEY.W, "up");
+    },
+
+    width: 352,
+    height: 264,
+
+    parameters: {
+        maxVelocity: 1
     }
 }
