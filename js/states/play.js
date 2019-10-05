@@ -1,14 +1,24 @@
 game.PlayStage = me.Stage.extend({
 
     onResetEvent: function() {
+        this.currentLevelIndex = 0;
+        this.currentLevel = new game.Level(game.levels[this.currentLevelIndex]);
         me.game.world.reset();
         me.game.world.addChild(new me.ColorLayer("background", "#000000"), 0)
-        game.level = new game.Level();
-        me.game.world.addChild(game.level);
+        me.game.world.addChild(level);
     },
 
     onDestroyEvent: function() {
 
+    },
+
+    nextLevel: function() {
+        this.currentLevelIndex++;
+        this.currentLevel = new game.Level(game.levels[this.currentLevelIndex].targetOutfit,
+                                           this.currentLevel.player);
+        me.game.world.reset();
+        me.game.world.addChild(new me.ColorLayer("background", "#000000"), 0)
+        me.game.world.addChild(level);
     }
 
 });
