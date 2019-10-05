@@ -23,9 +23,9 @@ game.Human = me.Container.extend({
 
 game.Policeman = game.Human.extend({
     init: function() {
-        this._super(game.Human, "init", [game.outfit.police, 
-                                        game.outfit.police, 
-                                        game.outfit.police]);
+        this._super(game.Human, "init", [outfit.police, 
+                                        outfit.police, 
+                                        outfit.police]);
     },
 
     update: function(dt) {
@@ -37,9 +37,9 @@ game.Policeman = game.Human.extend({
 
 game.Pedestrian = game.Human.extend({
     init: function() {
-        this._super(game.Human, "init", [game.outfit.cowboy,
-                                        game.outfit.business,
-                                        game.outfit.cowboy])
+        this._super(game.Human, "init", [outfit.cowboy,
+                                        outfit.business,
+                                        outfit.cowboy])
                                         console.log(Math.random())
         this.velocity = new me.Vector2d(Math.random(), Math.random()).scale(game.parameters.maxVelocity)
         this.angle = Math.PI/6
