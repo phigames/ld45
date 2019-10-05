@@ -1,7 +1,7 @@
 var outfit = {
-    business: 1,
-    cowboy: 2,
-    police: 3
+    business: "wizard",
+    cowboy: "wizard",
+    police: "banquier"
 };
 
 var game = {
