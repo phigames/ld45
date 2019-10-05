@@ -30,10 +30,20 @@ var game = {
         me.input.bindKey(me.input.KEY.W, "up");
     },
 
-    width: 352,
+    width: 420,
     height: 264,
 
+    levels: [
+        {
+            targetOutfit: game.outfit.business
+        },
+        {
+            targetOutfit: game.outfit.cowboy
+        }
+    ],
+
     parameters: {
-        maxVelocity: 0.1
+        maxVelocity: 0.1,
+        collisionDistance: 10
     }
 }
