@@ -1,3 +1,9 @@
+var outfit = {
+    business: 1,
+    cowboy: 2,
+    police: 3
+};
+
 var game = {
     onload: function() {
         if (!me.video.init(game.width, game.height, {
@@ -35,10 +41,10 @@ var game = {
 
     levels: [
         {
-            targetOutfit: game.outfit.business
+            targetOutfit: outfit.business
         },
         {
-            targetOutfit: game.outfit.cowboy
+            targetOutfit: outfit.cowboy
         }
     ],
 

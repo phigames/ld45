@@ -1,9 +1,3 @@
-game.outfit = {
-    business: 1,
-    cowboy: 2,
-    police: 3
-}
-
 game.Human = me.Container.extend({
     init: function(hat, shirt, pants) {
         this._super(me.Container, "init", [0, 0]);

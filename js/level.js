@@ -31,15 +31,15 @@ game.Level = me.Container.extend({
 
         // collisions
         for (let human of this.humans) {
-            if (player.distanceTo(human) <= game.parameters.collisionDistance) {
-                human.onCollide(player);
+            if (this.player.distanceTo(human) <= game.parameters.collisionDistance) {
+                human.onCollide(this.player);
             }
         }
 
         // winning condition
-        if (player.hat === this.targetOutfit.hat &&
-            player.shirt === this.targetOutfit.shirt &&
-            player.pants === this.targetOutfit.pants) {
+        if (this.player.hat === this.targetOutfit.hat &&
+            this.player.shirt === this.targetOutfit.shirt &&
+            this.player.pants === this.targetOutfit.pants) {
             me.state.current().nextLevel();
         }
         return true;

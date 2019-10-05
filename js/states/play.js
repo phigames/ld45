@@ -5,7 +5,7 @@ game.PlayStage = me.Stage.extend({
         this.currentLevel = new game.Level(game.levels[this.currentLevelIndex]);
         me.game.world.reset();
         me.game.world.addChild(new me.ColorLayer("background", "#000000"), 0)
-        me.game.world.addChild(level);
+        me.game.world.addChild(this.currentLevel);
     },
 
     onDestroyEvent: function() {
@@ -18,7 +18,7 @@ game.PlayStage = me.Stage.extend({
                                            this.currentLevel.player);
         me.game.world.reset();
         me.game.world.addChild(new me.ColorLayer("background", "#000000"), 0)
-        me.game.world.addChild(level);
+        me.game.world.addChild(this.currentLevel);
     }
 
 });
