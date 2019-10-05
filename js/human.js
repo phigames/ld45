@@ -1,6 +1,6 @@
 game.Human = me.Container.extend({
     init: function(hair, jacket, pants) {
-        this._super(me.Container, "init", [0, 0, 32, 64]);
+        this._super(me.Container, "init", [0, 0, 0, 0]);
         this.anchorPoint = { x: 0, y: 0 };
         this.changeOutfit(hair, jacket, pants)
         this.velocity = new me.Vector2d(0, 0);
@@ -17,24 +17,16 @@ game.Human = me.Container.extend({
         this.hair = hair;
         this.jacket = jacket;
         this.pants = pants;
-        let character = new me.Sprite(0, 0, { image: "naked_RAW", anchorpoint: {x: 0, y: 0} });
-        // character.pos.x = character.width/2
-        // character.pos.y = character.height/2
+        let character = new me.Sprite(0, 0, { image: "naked_RAW", anchorPoint: {x: 0, y: 0} });
         this.addChild(character)
-        this.addChild(new me.Sprite(0, 0, { image: "shoe", anchorpoint: {x: 0, y: 0} }));
-        console.log(hair+"_hair");
         if (this.hair != null) {
             let coords = outfitCoords[hair].hair;
-            console.log(coords);
-            
-            this.addChild(new me.Sprite(coords.x, coords.y, { image: hair+"_hair", anchorpoint: {x: 0, y: 0}}))
+            this.addChild(new me.Sprite(coords.x, coords.y, { image: hair+"_hair", anchorPoint: {x: 0, y: 0}}))
         }
-        console.log(this.jacket+"_jacket");
         if (this.jacket != null) {
             let coords = outfitCoords[jacket].jacket;
-            this.addChild( new me.Sprite(coords.x, coords.y, { image: jacket+"_jacket", anchorpoint: {x: 0, y: 0}}))
+            this.addChild( new me.Sprite(coords.x, coords.y, { image: jacket+"_jacket", anchorPoint: {x: 0, y: 0}}))
         }
-        console.log(this.pants+"_pants");
         if (this.pants != null) {
             let coords = outfitCoords[pants].pants;
             this.addChild( new me.Sprite(coords.x, coords.y, { image: pants+"_pants", anchorpoint: {x: 0, y: 0}}))
