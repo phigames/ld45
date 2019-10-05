@@ -31,7 +31,7 @@ var game = {
     },
 
     width: 420,
-    height: 264,
+    height: 256,
 
     levels: [
         {

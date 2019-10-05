@@ -1,9 +1,9 @@
 game.Human = me.Container.extend({
     init: function(hair, jacket, pants) {
         this._super(me.Container, "init", [0, 0, 32, 64]);
+        this.anchorPoint = {x: 0,y: 0};
         this.changeOutfit(hair, jacket, pants)
         this.velocity = new me.Vector2d(0, 0);
-        this.alwaysUpdate = true;
     },
 
     update: function(dt) {
@@ -14,34 +14,45 @@ game.Human = me.Container.extend({
         } else if (this.velocity.x > 0) {
             this.flipX(false);
         }
-        this.pos.z = this.pos.y;
+        this.pos.z = this.pos.y + 100;
         return true;
     },
 
     changeOutfit: function(hair, jacket, pants) {
-        this.clear
+        this.reset();
         this.hair = hair;
         this.jacket = jacket;
         this.pants = pants;
-        let character = new me.Sprite(0, 0, { image: "naked_RAW", anchorPoint: {x: 0, y: 0} });
-        this.addChild(character)
+        this.character = new me.Sprite(0, 0, { image: "naked_RAW", anchorPoint: {x: 0, y: 0} });
+        this.addChild(this.character)
         if (this.hair != null) {
             let coords = outfitCoords[hair].hair;
+            // this.hairSprite = new me.Sprite(coords.x, coords.y, { image: hair+"_hair", anchorPoint: {x: 0, y: 0}});
             this.addChild(new me.Sprite(coords.x, coords.y, { image: hair+"_hair", anchorPoint: {x: 0, y: 0}}))
-        }
+        } else { this.hairSprite = null; }
         if (this.jacket != null) {
             let coords = outfitCoords[jacket].jacket;
+            // this.jacketImage = me.loader.getImage(jacket + "_jacket");
+            // this.jacketCoords = coords;
             this.addChild(new me.Sprite(coords.x, coords.y, { image: jacket+"_jacket", anchorPoint: {x: 0, y: 0}}))
-        }
+        } else { this.jacketImage = null; }
         if (this.pants != null) {
             let coords = outfitCoords[pants].pants;
-            this.addChild(new me.Sprite(coords.x, coords.y, { image: pants+"_pants", anchorPoint: {x: 0, y: 0}}))
-        }
+            // this.pantsSprite = new me.Sprite(coords.x, coords.y, { image: pants+"_pants", anchorPoint: {x: 0, y: 0}});
+            this.addChild(new me.Sprite(coords.x, coords.y, { image: pants+"_pants", anchorPoint: {x: 0, y: 0}}));
+        } else { this.pantsSprite = null; }
     },
 
     onCollide: function(player) {
 
-    }
+    },
+
+    // draw: function(renderer) {
+    //     this._super(me.Container, "draw", [renderer]);
+    //     if (this.jacketImage !== null) {
+    //         renderer.drawImage(this.jacketImage, this.jacketCoords.x, this.jacketCoords.y);
+    //     }
+    // }
 });
 
 
@@ -120,17 +131,17 @@ game.Player = game.Human.extend({
         this.velocity = new me.Vector2d(velX, velY).normalize().scale(game.parameters.maxPlayerVelocity * dt);
         this._super(game.Human, "update", [dt])
         
-        if (this.pos.x < 0) {
-            this.pos.x = 0
+        if (this.pos.x < -16) {
+            this.pos.x = -16
         }
-        if (this.pos.x > game.width) {
-            this.pos.x = game.width-1
+        if (this.pos.x >= game.width - 16) {
+            this.pos.x = game.width-17
         }
-        if (this.pos.y < 0) {
-            this.pos.y = 0
+        if (this.pos.y < -32) {
+            this.pos.y = -32
         }
-        if (this.pos.y > game.height) {
-            this.pos.y = game.height-1
+        if (this.pos.y > game.height - 32) {
+            this.pos.y = game.height-33
         }
         return true;
     }

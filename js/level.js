@@ -4,7 +4,8 @@ game.Level = me.Container.extend({
         this.targetOutfit = targetOutfit;
         this.anchorPoint = { x: 0, y: 0 };
 
-        this.addChild(new me.Sprite(0, 0, { image: "street" }));
+        let backgroundSprite = new me.Sprite(0, 0, { image: "street", anchorPoint: { x: 0, y: 0 } });
+        this.addChild(backgroundSprite);
 
         if (oldPlayer === undefined) {
             this.player = new game.Player();
@@ -62,7 +63,7 @@ game.Level = me.Container.extend({
 
     generatePedestrian: function() {
         // TODO: generate using probabilites
-        let pedestrian = new game.Pedestrian("wizard", "wizard", "elvis");
+        let pedestrian = new game.Pedestrian("cop", "cop", "cop");
         this.humans.push(pedestrian);
         this.addChild(pedestrian);
     },
