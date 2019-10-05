@@ -4,6 +4,8 @@ game.Level = me.Container.extend({
         this.targetOutfit = targetOutfit;
         this.anchorPoint = { x: 0, y: 0 };
         let player = new game.Player();
+        let pedestrian = new game.Pedestrian();
         this.addChild(player);
+        this.addChild(pedestrian)
     }
 })

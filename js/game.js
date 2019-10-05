@@ -34,6 +34,6 @@ var game = {
     height: 264,
 
     parameters: {
-        maxVelocity: 1
+        maxVelocity: 0.1
     }
 }
