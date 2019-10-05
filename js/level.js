@@ -4,6 +4,8 @@ game.Level = me.Container.extend({
         this.targetOutfit = targetOutfit;
         this.anchorPoint = { x: 0, y: 0 };
 
+        this.addChild(new me.Sprite(0, 0, { image: "street" }));
+
         if (oldPlayer === undefined) {
             this.player = new game.Player();
         } else {
@@ -34,8 +36,6 @@ game.Level = me.Container.extend({
             this.generatePoliceman();
         }
 
-        // TODO: sort by y coordinates
-
         // collisions
         for (let human of this.humans) {
             if (this.player.distanceTo(human) <= game.parameters.collisionDistance) {
@@ -56,12 +56,13 @@ game.Level = me.Container.extend({
             me.state.current().gameOver();
         }
 
+        this.sort();
         return true;
     },
 
     generatePedestrian: function() {
         // TODO: generate using probabilites
-        let pedestrian = new game.Pedestrian("elvis", "wizard", "banquier");
+        let pedestrian = new game.Pedestrian("wizard", "wizard", "elvis");
         this.humans.push(pedestrian);
         this.addChild(pedestrian);
     },

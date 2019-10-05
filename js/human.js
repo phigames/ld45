@@ -1,14 +1,20 @@
 game.Human = me.Container.extend({
     init: function(hair, jacket, pants) {
-        this._super(me.Container, "init", [0, 0, 0, 0]);
-        this.anchorPoint = { x: 0, y: 0 };
+        this._super(me.Container, "init", [0, 0, 32, 64]);
         this.changeOutfit(hair, jacket, pants)
         this.velocity = new me.Vector2d(0, 0);
+        this.alwaysUpdate = true;
     },
 
     update: function(dt) {
         this._super(me.Container, "update", [dt]);
         this.pos.add(new me.Vector2d(this.velocity.x * dt, this.velocity.y * dt));
+        if (this.velocity.x < 0) {
+            this.flipX(true);
+        } else if (this.velocity.x > 0) {
+            this.flipX(false);
+        }
+        this.pos.z = this.pos.y;
         return true;
     },
 
@@ -25,13 +31,15 @@ game.Human = me.Container.extend({
         }
         if (this.jacket != null) {
             let coords = outfitCoords[jacket].jacket;
-            this.addChild( new me.Sprite(coords.x, coords.y, { image: jacket+"_jacket", anchorPoint: {x: 0, y: 0}}))
+            this.addChild(new me.Sprite(coords.x, coords.y, { image: jacket+"_jacket", anchorPoint: {x: 0, y: 0}}))
         }
         if (this.pants != null) {
             let coords = outfitCoords[pants].pants;
-            this.addChild( new me.Sprite(coords.x, coords.y, { image: pants+"_pants", anchorpoint: {x: 0, y: 0}}))
+            this.addChild(new me.Sprite(coords.x, coords.y, { image: pants+"_pants", anchorPoint: {x: 0, y: 0}}))
         }
+    },
 
+    onCollide: function(player) {
 
     }
 });
@@ -48,7 +56,7 @@ game.Policeman = game.Human.extend({
     },
 
     onCollide: function(player) {
-        
+        // TODO: remove clothes from player
     }
 });
 

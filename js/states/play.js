@@ -4,7 +4,7 @@ game.PlayStage = me.Stage.extend({
         this.currentLevelIndex = 0;
         this.currentLevel = new game.Level(game.levels[this.currentLevelIndex]);
         me.game.world.reset();
-        me.game.world.addChild(new me.ColorLayer("background", "#000000"), 0)
+        // me.game.world.addChild(new me.ColorLayer("background", "#000000"), 0)
         me.game.world.addChild(this.currentLevel);
     },
 
