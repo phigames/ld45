@@ -90,6 +90,7 @@ game.Human = me.Container.extend({
 
     walkOffscreen: function() {
         this.walkingOffscreen = true;
+        this.walkingAnimationInterval = 150;
     },
 
     onCollide: function(player) {
@@ -161,20 +162,27 @@ game.Pedestrian = game.Human.extend({
         },
 
     onCollide: function(player) {
+        let addWanted = 0;
         if (me.input.isKeyPressed("steal_hair") && this.hair != null) {
             player.changeOutfit(this.hair, player.jacket, player.pants);
             this.changeOutfit(null, this.jacket, this.pants, true);
             this.walkOffscreen();
+            addWanted = 1;
         }
         if (me.input.isKeyPressed("steal_jacket") && this.jacket != null) {
             player.changeOutfit(player.hair, this.jacket, player.pants);
             this.changeOutfit(this.hair, null, this.pants, true);
             this.walkOffscreen();
+            addWanted = 1;
         }
         if (me.input.isKeyPressed("steal_pants") && this.pants != null) {
             player.changeOutfit(player.hair, player.jacket, this.pants)
             this.changeOutfit(this.hair, this.jacket, null, true);
             this.walkOffscreen();
+            addWanted = 1;
+        }
+        if (addWanted > 0) {
+            me.state.current().currentLevel.addWanted(addWanted);
         }
     }
 });

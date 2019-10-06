@@ -17,8 +17,9 @@ game.Level = me.Container.extend({
         this.pedestrians = [];
         this.pedestrianNumber = 8;
         this.policemen = [];
-        this.policemanNumber = 5;
+        this.policemanNumber = 1;
 
+        this.wanted = 0;
         this.timePassed = 0;
         this.totalTime = 30 * 1000;
 
@@ -26,6 +27,8 @@ game.Level = me.Container.extend({
         me.game.world.addChild(this.outfitDisplay, 9999);
         this.timeDisplay = new game.TimeDisplay(this.totalTime);
         me.game.world.addChild(this.timeDisplay, 9999);
+        this.wantedDisplay = new game.WantedDisplay(3);
+        me.game.world.addChild(this.wantedDisplay, 9999);
     },
 
     update: function(dt) {
@@ -113,5 +116,13 @@ game.Level = me.Container.extend({
         let policeman = new game.Policeman();
         this.policemen.push(policeman);
         this.addChild(policeman);
+    },
+
+    addWanted: function(add) {
+        this.wanted += add;
+        if (this.wanted > 3) {
+            this.wanted = 3;
+        }
+        this.wantedDisplay.updateWanted(this.wanted);
     }
 });

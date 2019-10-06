@@ -42,6 +42,7 @@ game.OutfitDisplay = me.Container.extend({
     }
 });
 
+
 game.TimeDisplay = me.Container.extend({
     init: function(time) {
         this._super(me.Container, "init", [game.width - 25, game.height / 2, 50, 120]);
@@ -64,12 +65,27 @@ game.TimeDisplay = me.Container.extend({
     },
 
     updateTime: function(timePassed) {
+        // TODO: accent when almost done
         this.timePassed = timePassed;
         if (this.timePassed >= this.totalTime) {
             this.done = true;
         }
         this.airSprite.pos.y = this.airY0 + (this.airY1 - this.airY0) * (this.timePassed / this.totalTime);
         this.sandSprite.pos.y = this.sandY0 + (this.sandY1 - this.sandY0) * (this.timePassed / this.totalTime);
-        return true;
     }
-})
+});
+
+
+game.WantedDisplay = me.Container.extend({
+    init: function(maxWanted) {
+        this._super(me.Container, "init", [game.width - maxWanted * 20, 20, 100, 20]);
+        this.anchorPoint = {x: 0, y: 0};
+    },
+
+    updateWanted: function(wanted) {
+        this.reset();
+        for (let i = 0; i < wanted; i++) {
+            this.addChild(new me.Sprite(i * 20, 0, { image: "shoe" }));
+        }
+    }
+});
