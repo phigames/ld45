@@ -120,12 +120,24 @@ var pedestrianOutfits = [
     "wizard"
 ];
 
+var pedestrianSpawnPoints = [
+    {posX: -30, posY: 168, angle: -Math.PI/8, direction: 0.7},
+    {posX: -30, posY: -60, angle: Math.PI/6, direction: 0.5},
+    {posX: 300, posY: -60, angle: Math.PI, direction: -1},
+    {posX: 150, posY: 240, angle: -Math.PI/2, direction: 0.5},
+    {posX: 400, posY: 240, angle: 1.25*Math.PI, direction: 0.5},
+    {posX: 400, posY: 20, angle: 0.75*Math.PI, direction: 0.5}   
+]
+
 game.Pedestrian = game.Human.extend({
     init: function(hair, jacket, pants) {
         this._super(game.Human, "init", [ hair, jacket, pants ]);
         // TODO: place randomly around border of map
-        this.angle = Math.PI/6
-        this.direction = 1;
+        let rand = pedestrianSpawnPoints[Math.floor(Math.random() * pedestrianSpawnPoints.length)];
+        this.pos.x = rand.posX
+        this.pos.y = rand.posY
+        this.angle = rand.angle
+        this.direction = rand.direction;
     },
 
     update: function(dt) {
@@ -171,6 +183,8 @@ game.Pedestrian = game.Human.extend({
 game.Player = game.Human.extend({
     init: function() {
         this._super(game.Human, "init", [null, null, null])
+        this.pos.x = 194
+        this.pos.y = 96
     },
 
     update: function(dt) {
