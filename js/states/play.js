@@ -1,6 +1,11 @@
 game.PlayStage = me.Stage.extend({
 
     onResetEvent: function(levelNumber) {
+        if (levelNumber == 0) {
+            me.audio.stop("LD_minimal");
+            me.audio.stop("LD_boss_level");
+            me.audio.play("LD_minimal", true);
+        }
         me.game.world.reset();
         console.log("starting level ", levelNumber);
         this.level = new game.Level(levelNumber);
