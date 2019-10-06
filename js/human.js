@@ -171,27 +171,28 @@ game.Pedestrian = game.Human.extend({
         },
 
     onCollide: function(player) {
-        let addWanted = 0;
+        let stolen = false;
         if (me.input.isKeyPressed("steal_hair") && this.hair != null) {
             player.changeOutfit(this.hair, player.jacket, player.pants);
             this.changeOutfit(null, this.jacket, this.pants, true);
             this.walkOffscreen();
-            addWanted = 1;
+            stolen = true;
         }
         if (me.input.isKeyPressed("steal_jacket") && this.jacket != null) {
             player.changeOutfit(player.hair, this.jacket, player.pants);
             this.changeOutfit(this.hair, null, this.pants, true);
             this.walkOffscreen();
-            addWanted = 1;
+            stolen = true;
         }
         if (me.input.isKeyPressed("steal_pants") && this.pants != null) {
             player.changeOutfit(player.hair, player.jacket, this.pants)
             this.changeOutfit(this.hair, this.jacket, null, true);
             this.walkOffscreen();
-            addWanted = 1;
+            stolen = true;
         }
-        if (addWanted > 0) {
-            me.state.current().currentLevel.addWanted(addWanted);
+        if (stolen > 0) {
+            me.state.current().currentLevel.updateOutfit();
+            me.state.current().currentLevel.addWanted(1);
         }
     }
 });

@@ -68,13 +68,6 @@ game.Level = me.Container.extend({
             this.generatePoliceman();
         }
 
-        // win condition
-        if (this.player.hair === this.targetOutfit.hair &&
-            this.player.jacket === this.targetOutfit.jacket &&
-            this.player.pants === this.targetOutfit.pants) {
-            me.state.current().nextLevel();
-        }
-
         // lose condition
         this.timePassed += dt;
         if (this.timePassed >= this.totalTime) {
@@ -116,6 +109,18 @@ game.Level = me.Container.extend({
         let policeman = new game.Policeman(this.player.pos.x, this.player.pos.y);
         this.policemen.push(policeman);
         this.addChild(policeman);
+    },
+
+    updateOutfit: function() {
+        let hairDone = this.player.hair == this.targetOutfit;
+        let jacketDone = this.player.jacket == this.targetOutfit;
+        let pantsDone = this.player.pants == this.targetOutfit;
+        this.outfitDisplay.updateOutfit(hairDone, jacketDone, pantsDone);
+
+        // win condition
+        if (hairDone && jacketDone && pantsDone) {
+            me.state.current().nextLevel();
+        }
     },
 
     addWanted: function(add) {
