@@ -100,7 +100,15 @@ game.Human = me.Container.extend({
 
 
 var policemanSpawnPoints = [
-    {posX: -30, posY: 190}
+    {posX: -30, posY: 190},
+    {posX: 50, posY: -30},
+    {posX: 250, posY: -30},
+    {posX: 200, posY: 240},
+    {posX: 390, posY: 240},
+    {posX: 160, posY: 240},
+    {posX: 340, posY: -30},
+    {posX: -30, posY: -20},
+    {posX: -30, posY: -20}
 ]
 
 game.Policeman = game.Human.extend({
@@ -110,6 +118,7 @@ game.Policeman = game.Human.extend({
         this.pos.x = rand.posX;
         this.pos.y = rand.posY;
         this.velocity = new me.Vector2d(playerX - this.pos.x, playerY - this.pos.y).normalize().scale(game.parameters.policeVelocity);
+        this.jobdone = false
     },
 
     update: function(dt) {
@@ -118,7 +127,11 @@ game.Policeman = game.Human.extend({
     },
 
     onCollide: function(player) {
-
+        if (this.jobdone != true && !(player.hair == null && player.jacket == null && player.pants== null)) {
+            player.changeOutfit(null, null, null)
+            this.jobdone = true
+            player.character.flicker(2000)
+        }
     }
 });
 
