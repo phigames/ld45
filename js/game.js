@@ -17,10 +17,11 @@ var game = {
     },
 
     onloaded: function() {
+        me.state.set(me.state.MENU, new game.TitleStage());
         me.state.set(me.state.PLAY, new game.PlayStage());
         me.state.set(me.state.USER, new game.TransitionStage());
         me.state.set(me.state.GAMEOVER, new game.GameOverStage());
-        me.state.change(me.state.PLAY, 0);
+        me.state.change(me.state.MENU);
 
         me.input.bindKey(me.input.KEY.LEFT, "left");
         me.input.bindKey(me.input.KEY.A, "left");
