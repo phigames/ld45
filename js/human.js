@@ -8,13 +8,19 @@ game.Human = me.Container.extend({
         this.walkingAnimationTime = 0;
         this.walkingAnimationLeftUp = false;
 
+        this.walkingOffscreen = false;
+
         this.changeOutfit(hair, jacket, pants)
         this.alwaysUpdate = true;
     },
 
     update: function(dt) {
         this._super(me.Container, "update", [dt]);
-        this.pos.add(new me.Vector2d(this.velocity.x * dt, this.velocity.y * dt));
+        if (this.walkingOffscreen) {
+            this.pos.add(new me.Vector2d(this.velocity.x * dt * 3, this.velocity.y * dt * 3));
+        } else {
+            this.pos.add(new me.Vector2d(this.velocity.x * dt, this.velocity.y * dt));
+        }
         if (this.velocity.x < 0) {
             this.flipX(true);
         } else if (this.velocity.x > 0) {
@@ -78,6 +84,10 @@ game.Human = me.Container.extend({
         );
     },
 
+    walkOffscreen: function() {
+        this.walkingOffscreen = true;
+    },
+
     onCollide: function(player) {
 
     }
@@ -119,7 +129,7 @@ game.Pedestrian = game.Human.extend({
         let randomY = Math.random();
         this.angle += 0.001 * this.direction * dt;
         
-        let change_direction = Math.random();
+        let change_direction = this.walkingOffscreen ? 0 : Math.random();
         this._super(game.Human, "update", [dt]);
         if (change_direction <= 0.03) {
             this.direction = -this.direction;
