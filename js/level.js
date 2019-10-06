@@ -1,8 +1,8 @@
 game.Level = me.Container.extend({
-    init: function(targetOutfit, oldPlayer) {
+    init: function(settings, oldPlayer) {
         this._super(me.Container, "init", [0, 0, game.width, game.height]);
-        this.targetOutfit = targetOutfit;
-        this.targetOutfitProbability = 0.3;
+        this.targetOutfit = settings.targetOutfit;
+        this.targetOutfitProbability = settings.targetOutfitProbability;
         this.anchorPoint = { x: 0, y: 0 };
 
         let backgroundSprite = new me.Sprite(0, 0, { image: "street", anchorPoint: { x: 0, y: 0 } });
@@ -18,8 +18,14 @@ game.Level = me.Container.extend({
         this.pedestrianNumber = 8;
         this.policemen = [];
         this.policemanNumber = 5;
+
         this.timePassed = 0;
         this.totalTime = 30 * 1000;
+
+        this.outfitDisplay = new game.OutfitDisplay(this.targetOutfit);
+        me.game.world.addChild(this.outfitDisplay, 9999);
+        this.timeDisplay = new game.TimeDisplay(this.totalTime);
+        me.game.world.addChild(this.timeDisplay, 9999);
     },
 
     update: function(dt) {
@@ -32,7 +38,6 @@ game.Level = me.Container.extend({
                 this.removeChild(pedestrian);
                 this.pedestrians.splice(i, 1);
                 i--;
-                console.log("remove");
                 continue;
             }
             if (this.player.distanceTo(pedestrian) <= game.parameters.collisionDistance) {
@@ -54,7 +59,6 @@ game.Level = me.Container.extend({
 
         // spawn
         while (this.pedestrians.length < this.pedestrianNumber) {
-                            console.log("generate");
             this.generatePedestrian();
         }
         while (this.policemen.length < this.policemanNumber) {
@@ -73,6 +77,7 @@ game.Level = me.Container.extend({
         if (this.timePassed >= this.totalTime) {
             me.state.current().gameOver();
         }
+        this.timeDisplay.updateTime(this.timePassed);
 
         this.sort();
         return true;
@@ -98,7 +103,6 @@ game.Level = me.Container.extend({
         while (jacket == hair) jacket = this._randomOutfit();
         let pants = this._randomOutfit();
         while (pants == hair || pants == jacket) pants = this._randomOutfit();
-        console.log(hair, jacket, pants);
         
         let pedestrian = new game.Pedestrian(hair, jacket, pants);
         this.pedestrians.push(pedestrian);

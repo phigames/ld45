@@ -36,10 +36,12 @@ var game = {
     // TODO: level ordering
     levels: [
         {
-            targetOutfit: "elvis"
+            targetOutfit: "elvis",
+            targetOutfitProbability: 0.3
         },
         {
-            targetOutfit: "banquier"
+            targetOutfit: "banquier",
+            targetOutfitProbability: 0.2
         }
     ],
 

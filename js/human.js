@@ -1,7 +1,7 @@
 game.Human = me.Container.extend({
     init: function(hair, jacket, pants) {
         this._super(me.Container, "init", [0, 0, 32, 64]);
-        this.anchorPoint = {x: 0,y: 0};
+        this.anchorPoint = {x: 0, y: 0};
 
         this.velocity = new me.Vector2d(0, 0);
         this.walkingAnimationInterval = 200;
