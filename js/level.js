@@ -1,25 +1,22 @@
 game.Level = me.Container.extend({
-    init: function(settings, oldPlayer) {
+    init: function(number) {
         this._super(me.Container, "init", [0, 0, game.width, game.height]);
-        this.targetOutfit = settings.targetOutfit;
-        this.targetOutfitProbability = settings.targetOutfitProbability;
+        this.number = number;
+        this.targetOutfit = game.levels[number].targetOutfit;
+        this.targetOutfitProbability = game.levels[number].targetOutfitProbability;
         this.anchorPoint = { x: 0, y: 0 };
 
         let backgroundSprite = new me.Sprite(0, 0, { image: "street", anchorPoint: { x: 0, y: 0 } });
         this.addChild(backgroundSprite);
 
-        if (oldPlayer === undefined) {
-            this.player = new game.Player();
-        } else {
-            this.player = oldPlayer;
-        }
+        this.player = new game.Player();
         this.addChild(this.player);
         this.pedestrians = [];
         this.pedestrianNumber = 8;
         this.policemen = [];
         this.policemanNumber = 1;
 
-        this.wanted = 0;
+        // this.wanted = 0;
         this.timePassed = 0;
         this.totalTime = 30 * 1000;
 
@@ -27,8 +24,8 @@ game.Level = me.Container.extend({
         me.game.world.addChild(this.outfitDisplay, 9999);
         this.timeDisplay = new game.TimeDisplay(this.totalTime);
         me.game.world.addChild(this.timeDisplay, 9999);
-        this.wantedDisplay = new game.WantedDisplay(3);
-        me.game.world.addChild(this.wantedDisplay, 9999);
+        // this.wantedDisplay = new game.WantedDisplay(3);
+        // me.game.world.addChild(this.wantedDisplay, 9999);
     },
 
     update: function(dt) {
@@ -68,6 +65,12 @@ game.Level = me.Container.extend({
             this.generatePoliceman();
         }
 
+        this.policemanNumber -= 0.0005 * dt;
+        if (this.policemanNumber < 1) {
+            this.policemanNumber = 1;
+        }
+        console.log(this.policemanNumber);
+
         // lose condition
         this.timePassed += dt;
         if (this.timePassed >= this.totalTime) {
@@ -106,7 +109,14 @@ game.Level = me.Container.extend({
     },
 
     generatePoliceman: function() {
-        let policeman = new game.Policeman(this.player.pos.x, this.player.pos.y);
+        let policeman = null;
+        // if (this.wanted == 0) {
+            // don't aim at player
+            // policeman = new game.Policeman(game.width / 4 + Math.random() * game.width / 2,
+                                        //    game.height / 4 + Math.random() * game.height / 2);
+        // } else {
+            policeman = new game.Policeman(this.player.pos.x, this.player.pos.y);
+        // }
         this.policemen.push(policeman);
         this.addChild(policeman);
     },
@@ -119,16 +129,23 @@ game.Level = me.Container.extend({
 
         // win condition
         if (hairDone && jacketDone && pantsDone) {
+<<<<<<< HEAD
             this.player.walkToCenter()
             // me.state.current().nextLevel();
+=======
+            me.state.change(me.state.USER, this.number + 1);
+            // me.state.change(me.state.PLAY, this.number + 1);
+>>>>>>> 5d2e36e4435800ae86e45d30870de47d0023d96f
         }
     },
 
     addWanted: function(add) {
-        this.wanted += add;
-        if (this.wanted > 3) {
-            this.wanted = 3;
-        }
-        this.wantedDisplay.updateWanted(this.wanted);
+        // this.wanted += add;
+        // if (this.wanted > 3) {
+        //     this.wanted = 3;
+        // }
+        // this.policemanNumber = (this.wanted + 1) * 2;
+        this.policemanNumber += add;
+        // this.wantedDisplay.updateWanted(this.wanted);
     }
 });
