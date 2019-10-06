@@ -28,6 +28,9 @@ var game = {
         me.input.bindKey(me.input.KEY.S, "down");
         me.input.bindKey(me.input.KEY.UP, "up");
         me.input.bindKey(me.input.KEY.W, "up");
+        me.input.bindKey(me.input.KEY.NUM1, "steal_hair", true);
+        me.input.bindKey(me.input.KEY.NUM2, "steal_jacket", true);
+        me.input.bindKey(me.input.KEY.NUM3, "steal_pants", true);
     },
 
     width: 420,
