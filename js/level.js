@@ -119,7 +119,8 @@ game.Level = me.Container.extend({
 
         // win condition
         if (hairDone && jacketDone && pantsDone) {
-            me.state.current().nextLevel();
+            this.player.walkToCenter()
+            // me.state.current().nextLevel();
         }
     },
 

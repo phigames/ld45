@@ -130,7 +130,7 @@ game.Policeman = game.Human.extend({
         if (this.jobdone != true && !(player.hair == null && player.jacket == null && player.pants== null)) {
             player.changeOutfit(null, null, null)
             this.jobdone = true
-            player.character.flicker(2000)
+            player.character.flicker(1500)
         }
     }
 });
@@ -216,24 +216,43 @@ game.Player = game.Human.extend({
         this._super(game.Human, "init", [null, null, null])
         this.pos.x = 194
         this.pos.y = 96
+        this.walkingToCenter = false
+    },
+
+    walkToCenter: function() {
+        this.walkingToCenter = true
     },
 
     update: function(dt) {
-        let velX = 0
-        let velY = 0
-        if (me.input.isKeyPressed("left")) {
-            velX -= 1
+        if (this.walkingToCenter === true) {
+            this.velocity = new me.Vector2d(193 - this.pos.x, 96-this.pos.y).normalize().scale(game.parameters.maxPlayerVelocity * dt)
+            console.log("walkingtocenter");
+            console.log(this.pos.x, this.pos.y)
+            if (this.pos.x <= 194 && this.pos.x >= 192){
+                if (this.pos.y <= 97 && this.pos.y >= 95) {
+                    this.velocity = new me.Vector2d(0, 0)
+                }
+            }
+        
+            
         }
-        if (me.input.isKeyPressed("right")) {
-            velX += 1
-        }
-        if (me.input.isKeyPressed("up")) {
-            velY -= 1
-        }
-        if (me.input.isKeyPressed("down")) {
-            velY += 1
-        }
-        this.velocity = new me.Vector2d(velX, velY).normalize().scale(game.parameters.maxPlayerVelocity * dt);
+        else {
+            let velX = 0
+            let velY = 0
+            if (me.input.isKeyPressed("left")) {
+                velX -= 1
+            }
+            if (me.input.isKeyPressed("right")) {
+                velX += 1
+            }
+            if (me.input.isKeyPressed("up")) {
+                velY -= 1
+            }
+            if (me.input.isKeyPressed("down")) {
+                velY += 1
+            }
+            this.velocity = new me.Vector2d(velX, velY).normalize().scale(game.parameters.maxPlayerVelocity * dt);
+        }    
         this._super(game.Human, "update", [dt])
         
         if (this.pos.x < -16) {
@@ -249,7 +268,9 @@ game.Player = game.Human.extend({
             this.pos.y = game.height - 33
         }
         return true;
+    
     }
+
 
 });
 
