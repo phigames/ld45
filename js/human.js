@@ -50,12 +50,16 @@ game.Human = me.Container.extend({
         return true;
     },
 
-    changeOutfit: function(hair, jacket, pants) {
+    changeOutfit: function(hair, jacket, pants, blush) {
         this.reset();
         this.hair = hair;
         this.jacket = jacket;
         this.pants = pants;
-        this.character = new me.Sprite(0, 0, { image: "naked_RAW", anchorPoint: {x: 0, y: 0} });
+        if (blush) {
+            this.character = new me.Sprite(0, 0, { image: "naked_blush", anchorPoint: {x: 0, y: 0} });
+        } else {
+            this.character = new me.Sprite(0, 0, { image: "naked_RAW", anchorPoint: {x: 0, y: 0} });
+        }
         this.addChild(this.character)
 
         if (this.hair != null) {
@@ -147,18 +151,21 @@ game.Pedestrian = game.Human.extend({
     onCollide: function(player) {
         if (me.input.isKeyPressed("steal_hair") && this.hair != null) {
             player.changeOutfit(this.hair, player.jacket, player.pants);
-            this.changeOutfit(null, this.jacket, this.pants);
+            this.changeOutfit(null, this.jacket, this.pants, true);
+            this.walkOffscreen();
         }
         if (me.input.isKeyPressed("steal_jacket") && this.jacket != null) {
             player.changeOutfit(player.hair, this.jacket, player.pants);
-            this.changeOutfit(this.hair, null, this.pants);
+            this.changeOutfit(this.hair, null, this.pants, true);
+            this.walkOffscreen();
         }
         if (me.input.isKeyPressed("steal_pants") && this.pants != null) {
             player.changeOutfit(player.hair, player.jacket, this.pants)
-            this.changeOutfit(this.hair, this.jacket, null)
+            this.changeOutfit(this.hair, this.jacket, null, true);
+            this.walkOffscreen();
         }
     }
-    });
+});
 
 
 game.Player = game.Human.extend({
