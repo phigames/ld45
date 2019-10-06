@@ -60,10 +60,10 @@ game.Level = me.Container.extend({
         }
 
         // spawn
-        while (this.pedestrians.length < this.pedestrianNumber) {
+        while (this.pedestrians.length < this.pedestrianNumber && !this.player.walkingToCenter) {
             this.generatePedestrian();
         }
-        while (this.policemen.length < this.policemanNumber) {
+        while (this.policemen.length < this.policemanNumber && !this.player.walkingToCenter) {
             this.generatePoliceman();
         }
 
@@ -80,6 +80,21 @@ game.Level = me.Container.extend({
         this.timeDisplay.updateTime(this.timePassed);
 
         this.sort();
+
+
+        // win condition
+        if (this.player.walkingToCenter) {
+            var allOffscreen = true;
+            for (pedestrian in this.pedestrians) {
+                if (!this.pedestrians[pedestrian].isOffscreen()) {
+                    allOffscreen = false;
+                    break;
+                }
+            }
+            if (allOffscreen) {
+                me.state.change(me.state.USER, this.number + 1)
+            }
+        }
         return true;
     },
 
