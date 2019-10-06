@@ -118,6 +118,7 @@ game.Policeman = game.Human.extend({
         this.pos.x = rand.posX;
         this.pos.y = rand.posY;
         this.velocity = new me.Vector2d(playerX - this.pos.x, playerY - this.pos.y).normalize().scale(game.parameters.policeVelocity);
+        this.jobdone = false
     },
 
     update: function(dt) {
@@ -126,7 +127,11 @@ game.Policeman = game.Human.extend({
     },
 
     onCollide: function(player) {
-
+        if (this.jobdone != true && !(player.hair == null && player.jacket == null && player.pants== null)) {
+            player.changeOutfit(null, null, null)
+            this.jobdone = true
+            player.character.flicker(2000)
+        }
     }
 });
 
