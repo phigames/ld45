@@ -81,9 +81,8 @@ game.Level = me.Container.extend({
 
         this.sort();
 
-
         // win condition
-        if (this.player.walkingToCenter) {
+        if (this.player.inCenter) {
             var allOffscreen = true;
             for (pedestrian in this.pedestrians) {
                 if (!this.pedestrians[pedestrian].isOffscreen()) {
@@ -163,5 +162,9 @@ game.Level = me.Container.extend({
         // this.policemanNumber = (this.wanted + 1) * 2;
         this.policemanNumber += size;
         // this.wantedDisplay.updateWanted(this.wanted);
+    },
+
+    resetPolicemanWave: function() {
+        this.policemanNumber = 1;
     }
 });

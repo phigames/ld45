@@ -42,13 +42,33 @@ var game = {
     // TODO: level ordering
     levels: [
         {
+            targetOutfit: "banquier",
+            targetOutfitProbability: 0.5
+        },
+        {
             targetOutfit: "elvis",
+            targetOutfitProbability: 0.4
+        },
+        {
+            targetOutfit: "skater",
+            targetOutfitProbability: 0.4
+        },
+        {
+            targetOutfit: "cowboy",
             targetOutfitProbability: 0.3
         },
         {
-            targetOutfit: "banquier",
+            targetOutfit: "barca",
+            targetOutfitProbability: 0.3
+        },
+        {
+            targetOutfit: "swimmer",
+            targetOutfitProbability: 0.3
+        },
+        {
+            targetOutfit: "wizard",
             targetOutfitProbability: 0.2
-        }
+        },
     ],
 
     parameters: {

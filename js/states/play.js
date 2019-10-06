@@ -5,7 +5,10 @@ game.PlayStage = me.Stage.extend({
         console.log("starting level ", levelNumber);
         this.level = new game.Level(levelNumber);
         me.game.world.addChild(this.level);
-        // me.audio.play("test");
+        if (levelNumber == game.levels.length - 1) {
+            me.audio.stop("LD_minimal");
+            me.audio.play("LD_boss_level", true);
+        }
     },
 
     onDestroyEvent: function() {

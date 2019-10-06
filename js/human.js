@@ -83,8 +83,8 @@ game.Human = me.Container.extend({
 
     isOffscreen: function() {
         return (
-            this.pos.x <= -32 || this.pos.x >= game.width ||
-            this.pos.y <= -64 || this.pos.y >= game.height
+            this.pos.x <= -32 || this.pos.x >= game.width + 32 ||
+            this.pos.y <= -64 || this.pos.y >= game.height + 64
         );
     },
 
@@ -134,6 +134,7 @@ game.Policeman = game.Human.extend({
         if (this.jobdone != true && !(player.hair == null && player.jacket == null && player.pants == null)) {
             player.changeOutfit(null, null, null)
             me.state.current().level.updateOutfit();
+            me.state.current().level.resetPolicemanWave();
             this.jobdone = true;
             player.character.flicker(1000);
             // flicker(player, 3);
@@ -148,7 +149,8 @@ var pedestrianOutfits = [
     "wizard", 
     "barca",
     "cowboy",
-    "swimmer"
+    "swimmer",
+    "skater"
 ];
 
 var pedestrianSpawnPoints = [
@@ -188,12 +190,11 @@ game.Pedestrian = game.Human.extend({
        //     this.angle = Math.PI * Math.random()
        // }
         if (this.walkingOffscreen == true) {
-            this.velocity = new me.Vector2d(this.pos.x - 196, this.pos.y - 96).normalize().scale(game.parameters.maxPedestrianVelocity * dt*1.5)            
+            this.velocity = new me.Vector2d(this.pos.x - 196, this.pos.y - 96).normalize().scale(game.parameters.maxPedestrianVelocity * dt*1.5);
+        } else {
+            this.velocity = new me.Vector2d(Math.cos(this.angle), Math.sin(this.angle)).normalize().scale(game.parameters.maxPedestrianVelocity * dt);
         }
-        else {
-        this.velocity = new me.Vector2d(Math.cos(this.angle), Math.sin(this.angle)).normalize().scale(game.parameters.maxPedestrianVelocity * dt)
         return true;
-        }
     },
 
     onCollide: function(player) {
@@ -227,9 +228,10 @@ game.Pedestrian = game.Human.extend({
 game.Player = game.Human.extend({
     init: function() {
         this._super(game.Human, "init", [null, null, null])
-        this.pos.x = 194
-        this.pos.y = 96
-        this.walkingToCenter = false
+        this.pos.x = 194;
+        this.pos.y = 96;
+        this.walkingToCenter = false;
+        this.inCenter = false;
     },
 
     walkToCenter: function() {
@@ -241,6 +243,7 @@ game.Player = game.Human.extend({
             this.velocity = new me.Vector2d(193 - this.pos.x, 96-this.pos.y).normalize().scale(game.parameters.maxPlayerVelocity * dt)
             if (this.pos.x <= 194 && this.pos.x >= 192){
                 if (this.pos.y <= 97 && this.pos.y >= 95) {
+                    this.inCenter = true;
                     this.velocity = new me.Vector2d(0, 0);
                 }
             }
@@ -313,15 +316,21 @@ var outfitCoords = {
     barca: {
         hair: {x: 9,y: -2,},
         jacket: {x: 1,y: 16,},
-        pants: {x: 7,y: 41,},
+        pants: {x: 7,y: 41,}
     },
     cowboy: {
         hair: {x: 3,y: -4},
         jacket: {x: 0,y: 13,},
-        pants: {x: 2,y: 37},
+        pants: {x: 2,y: 37}
     },
-    swimmer: {hair: {x: 7, y: -1},
+    swimmer: {
+        hair: {x: 7, y: -1},
         jacket: {x: 8, y: 16},
-        pants: {x: 8, y: 35},
+        pants: {x: 8, y: 35}
+    },
+    skater: {
+        hair: { x: 8, y: -0, },
+        jacket: { x: -4, y: 16, },
+        pants: { x: 4, y: 38, }
     }
 }
