@@ -83,8 +83,17 @@ game.Level = me.Container.extend({
 
 
         // win condition
-        if (this.pedestrians.length == 0 && this.policemen.length == 0) {
-            me.state.change(me.state.USER, me.state.current().level.number + 1)
+        if (this.player.walkingToCenter) {
+            var allOffscreen = true;
+            for (pedestrian in this.pedestrians) {
+                if (!this.pedestrians[pedestrian].isOffscreen()) {
+                    allOffscreen = false;
+                    break;
+                }
+            }
+            if (allOffscreen) {
+                me.state.change(me.state.USER, this.number + 1)
+            }
         }
         return true;
     },
