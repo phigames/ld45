@@ -18,7 +18,8 @@ var game = {
 
     onloaded: function() {
         me.state.set(me.state.PLAY, new game.PlayStage());
-        me.state.change(me.state.PLAY);
+        me.state.set(me.state.USER, new game.TransitionStage());
+        me.state.change(me.state.PLAY, 0);
 
         me.input.bindKey(me.input.KEY.LEFT, "left");
         me.input.bindKey(me.input.KEY.A, "left");
@@ -53,5 +54,23 @@ var game = {
         maxPedestrianVelocity: 0.002,
         policeVelocity: 0.05,
         collisionDistance: 10
+    },
+
+}
+
+function delay(duration, then) {
+    new me.Tween(me.game.world).delay(duration).onComplete(then).start();
+}
+
+function flicker(object, times) {
+    if (times <= 0) {
+        return;
     }
+    object.alpha = 0;
+    delay(100, function() {
+        object.alpha = 1;
+        delay(100, function() {
+            flicker(object, times - 1);
+        });
+    });
 }
