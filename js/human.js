@@ -123,7 +123,11 @@ game.Policeman = game.Human.extend({
 
     update: function(dt) {
         this._super(game.Human, "update", [dt]);
+        if (this.walkingOffscreen == true) {
+            this.velocity = new me.Vector2d(this.pos.x - 196, this.pos.y - 96).normalize().scale(game.parameters.maxPedestrianVelocity * dt*1.5)            
+        }
         return true;
+        
     },
 
     onCollide: function(player) {
@@ -172,7 +176,7 @@ game.Pedestrian = game.Human.extend({
         let randomY = Math.random();
         this.angle += 0.001 * this.direction * dt;
         
-        let change_direction = this.walkingOffscreen ? 0 : Math.random();
+        let change_direction =  Math.random();
         this._super(game.Human, "update", [dt]);
         if (change_direction <= 0.03) {
             this.direction = -this.direction;
@@ -183,9 +187,14 @@ game.Pedestrian = game.Human.extend({
        // else if (change_direction >= 0.97) {
        //     this.angle = Math.PI * Math.random()
        // }
+        if (this.walkingOffscreen == true) {
+            this.velocity = new me.Vector2d(this.pos.x - 196, this.pos.y - 96).normalize().scale(game.parameters.maxPedestrianVelocity * dt*1.5)            
+        }
+        else {
         this.velocity = new me.Vector2d(Math.cos(this.angle), Math.sin(this.angle)).normalize().scale(game.parameters.maxPedestrianVelocity * dt)
         return true;
-        },
+        }
+    },
 
     onCollide: function(player) {
         let stolen = 0;
@@ -233,7 +242,6 @@ game.Player = game.Human.extend({
             if (this.pos.x <= 194 && this.pos.x >= 192){
                 if (this.pos.y <= 97 && this.pos.y >= 95) {
                     this.velocity = new me.Vector2d(0, 0);
-                    me.state.change(me.state.USER, me.state.current().level.number + 1);
                 }
             }
         

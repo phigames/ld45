@@ -60,10 +60,10 @@ game.Level = me.Container.extend({
         }
 
         // spawn
-        while (this.pedestrians.length < this.pedestrianNumber) {
+        while (this.pedestrians.length < this.pedestrianNumber && !this.player.walkingToCenter) {
             this.generatePedestrian();
         }
-        while (this.policemen.length < this.policemanNumber) {
+        while (this.policemen.length < this.policemanNumber && !this.player.walkingToCenter) {
             this.generatePoliceman();
         }
 
@@ -80,6 +80,10 @@ game.Level = me.Container.extend({
         this.timeDisplay.updateTime(this.timePassed);
 
         this.sort();
+        // win condition
+        if (this.pedestrianNumber == 0 && this.policeman == 0) {
+            me.state.change(me.state.USER, me.state.current().level.number + 1)
+        }
         return true;
     },
 
