@@ -99,7 +99,15 @@ game.Human = me.Container.extend({
 
 
 var policemanSpawnPoints = [
-    {posX: -30, posY: 190}
+    {posX: -30, posY: 190},
+    {posX: 50, posY: -30},
+    {posX: 250, posY: -30},
+    {posX: 200, posY: 240},
+    {posX: 390, posY: 240},
+    {posX: 160, posY: 240},
+    {posX: 340, posY: -30},
+    {posX: -30, posY: -20},
+    {posX: -30, posY: -20}
 ]
 
 game.Policeman = game.Human.extend({
