@@ -63,15 +63,15 @@ game.Human = me.Container.extend({
         this.addChild(this.character)
 
         if (this.hair != null) {
-            let coords = outfitCoords[hair].hair;
+            var coords = outfitCoords[hair].hair;
             this.addChild(new me.Sprite(coords.x, coords.y, { image: hair+"_hair", anchorPoint: {x: 0, y: 0}}))
         }
         if (this.jacket != null) {
-            let coords = outfitCoords[jacket].jacket;
+            var coords = outfitCoords[jacket].jacket;
             this.addChild(new me.Sprite(coords.x, coords.y, { image: jacket+"_jacket", anchorPoint: {x: 0, y: 0}}))
         }
         if (this.pants != null) {
-            let coords = outfitCoords[pants].pants;
+            var coords = outfitCoords[pants].pants;
             this.addChild(new me.Sprite(coords.x, coords.y, { image: pants+"_pants", anchorPoint: {x: 0, y: 0}}));
         }
 
@@ -114,7 +114,7 @@ var policemanSpawnPoints = [
 game.Policeman = game.Human.extend({
     init: function(playerX, playerY) {
         this._super(game.Human, "init", [ "cop", "cop", "cop" ]);
-        let rand = policemanSpawnPoints[Math.floor(Math.random() * policemanSpawnPoints.length)];
+        var rand = policemanSpawnPoints[Math.floor(Math.random() * policemanSpawnPoints.length)];
         this.pos.x = rand.posX;
         this.pos.y = rand.posY;
         this.velocity = new me.Vector2d(playerX - this.pos.x, playerY - this.pos.y).normalize().scale(game.parameters.policeVelocity);
@@ -160,7 +160,7 @@ game.Pedestrian = game.Human.extend({
     init: function(hair, jacket, pants) {
         this._super(game.Human, "init", [ hair, jacket, pants ]);
         // TODO: place randomly around border of map
-        let rand = pedestrianSpawnPoints[Math.floor(Math.random() * pedestrianSpawnPoints.length)];
+        var rand = pedestrianSpawnPoints[Math.floor(Math.random() * pedestrianSpawnPoints.length)];
         this.pos.x = rand.posX
         this.pos.y = rand.posY
         this.angle = rand.angle
@@ -168,11 +168,11 @@ game.Pedestrian = game.Human.extend({
     },
 
     update: function(dt) {
-        let randomX = Math.random();
-        let randomY = Math.random();
+        var randomX = Math.random();
+        var randomY = Math.random();
         this.angle += 0.001 * this.direction * dt;
         
-        let change_direction = this.walkingOffscreen ? 0 : Math.random();
+        var change_direction = this.walkingOffscreen ? 0 : Math.random();
         this._super(game.Human, "update", [dt]);
         if (change_direction <= 0.03) {
             this.direction = -this.direction;
@@ -188,7 +188,7 @@ game.Pedestrian = game.Human.extend({
         },
 
     onCollide: function(player) {
-        let stolen = 0;
+        var stolen = 0;
         if (me.input.isKeyPressed("steal_hair") && this.hair != null) {
             player.changeOutfit(this.hair, player.jacket, player.pants);
             this.changeOutfit(null, this.jacket, this.pants, true);
@@ -240,8 +240,8 @@ game.Player = game.Human.extend({
             
         }
         else {
-            let velX = 0
-            let velY = 0
+            var velX = 0
+            var velY = 0
             if (me.input.isKeyPressed("left")) {
                 velX -= 1
             }

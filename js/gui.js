@@ -85,7 +85,7 @@ game.WantedDisplay = me.Container.extend({
 
     updateWanted: function(wanted) {
         this.reset();
-        for (let i = 0; i < wanted; i++) {
+        for (var i = 0; i < wanted; i++) {
             this.addChild(new me.Sprite(i * 20, 0, { image: "shoe" }));
         }
     }

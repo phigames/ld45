@@ -6,7 +6,7 @@ game.Level = me.Container.extend({
         this.targetOutfitProbability = game.levels[number].targetOutfitProbability;
         this.anchorPoint = { x: 0, y: 0 };
 
-        let backgroundSprite = new me.Sprite(0, 0, { image: "street", anchorPoint: { x: 0, y: 0 } });
+        var backgroundSprite = new me.Sprite(0, 0, { image: "street", anchorPoint: { x: 0, y: 0 } });
         this.addChild(backgroundSprite);
 
         this.player = new game.Player();
@@ -32,8 +32,8 @@ game.Level = me.Container.extend({
         this._super(me.Container, "update", [dt]);
 
         // collisions, remove offscreen
-        for (let i = 0; i < this.pedestrians.length; i++) {
-            let pedestrian = this.pedestrians[i];
+        for (var i = 0; i < this.pedestrians.length; i++) {
+            var pedestrian = this.pedestrians[i];
             if (pedestrian.isOffscreen()) {
                 this.removeChild(pedestrian);
                 this.pedestrians.splice(i, 1);
@@ -45,8 +45,8 @@ game.Level = me.Container.extend({
             }
         }
         if (!this.player.walkingToCenter) {
-            for (let i = 0; i < this.policemen.length; i++) {
-                let policeman = this.policemen[i];
+            for (var i = 0; i < this.policemen.length; i++) {
+                var policeman = this.policemen[i];
                 if (policeman.isOffscreen()) {
                     this.removeChild(policeman);
                     this.policemen.splice(i, 1);
@@ -87,30 +87,30 @@ game.Level = me.Container.extend({
         if (Math.random() < this.targetOutfitProbability) {
             return this.targetOutfit;
         }
-        let nontarget = [];
-        for (outfit of pedestrianOutfits) {
-            if (outfit != this.targetOutfit) {
-                nontarget.push(outfit);
+        var nontarget = [];
+        for (outfit in pedestrianOutfits) {
+            if (pedestrianOutfits[outfit] != this.targetOutfit) {
+                nontarget.push(pedestrianOutfits[outfit]);
             }
         }
-        let r = Math.floor(Math.random() * nontarget.length);
+        var r = Math.floor(Math.random() * nontarget.length);
         return nontarget[r];
     },
 
     generatePedestrian: function() {
-        let hair = this._randomOutfit();
-        let jacket = this._randomOutfit();
+        var hair = this._randomOutfit();
+        var jacket = this._randomOutfit();
         while (jacket == hair) jacket = this._randomOutfit();
-        let pants = this._randomOutfit();
+        var pants = this._randomOutfit();
         while (pants == hair || pants == jacket) pants = this._randomOutfit();
         
-        let pedestrian = new game.Pedestrian(hair, jacket, pants);
+        var pedestrian = new game.Pedestrian(hair, jacket, pants);
         this.pedestrians.push(pedestrian);
         this.addChild(pedestrian);
     },
 
     generatePoliceman: function() {
-        let policeman = null;
+        var policeman = null;
         // if (this.wanted == 0) {
             // don't aim at player
             // policeman = new game.Policeman(game.width / 4 + Math.random() * game.width / 2,
@@ -123,19 +123,19 @@ game.Level = me.Container.extend({
     },
 
     updateOutfit: function() {
-        let hairDone = this.player.hair == this.targetOutfit;
-        let jacketDone = this.player.jacket == this.targetOutfit;
-        let pantsDone = this.player.pants == this.targetOutfit;
+        var hairDone = this.player.hair == this.targetOutfit;
+        var jacketDone = this.player.jacket == this.targetOutfit;
+        var pantsDone = this.player.pants == this.targetOutfit;
         this.outfitDisplay.updateOutfit(hairDone, jacketDone, pantsDone);
 
         // win condition
         if (hairDone && jacketDone && pantsDone) {
             this.player.walkToCenter();
-            for (pedestrian of this.pedestrians) {
-                pedestrian.walkOffscreen();
+            for (pedestrian in this.pedestrians) {
+                this.pedestrians[pedestrian].walkOffscreen();
             }
-            for (policeman of this.policemen) {
-                policeman.walkOffscreen();
+            for (policeman in this.policemen) {
+                this.policemen[policeman].walkOffscreen();
             }
         }
     },

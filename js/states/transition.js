@@ -1,7 +1,7 @@
 game.TransitionStage = me.Stage.extend({
     onResetEvent: function(nextLevelNumber) {
         // me.game.world.reset();
-        // let backgroundSprite = new me.Sprite(0, 0, { image: "street", anchorPoint: { x: 0, y: 0 } });
+        // var backgroundSprite = new me.Sprite(0, 0, { image: "street", anchorPoint: { x: 0, y: 0 } });
         // me.game.world.addChild(backgroundSprite);
         console.log("transition to level ", nextLevelNumber);
         delay(500, function() {
