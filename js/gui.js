@@ -12,17 +12,15 @@ game.OutfitDisplay = me.Container.extend({
     },
 
     updateOutfit: function(hairDone, jacketDone, pantsDone) {
-        console.log(hairDone, jacketDone, pantsDone);
-        
         function tweenOut(sprite) {
             new me.Tween(sprite.pos)
-                .to({x: -50}, 500)
+                .to({x: -50}, 300)
                 .easing(me.Tween.Easing.Quadratic.In)
                 .start();
         }
         function tweenIn(sprite) {
             new me.Tween(sprite.pos)
-                .to({x: 0}, 500)
+                .to({x: 0}, 300)
                 .easing(me.Tween.Easing.Quadratic.Out)
                 .start();
         }

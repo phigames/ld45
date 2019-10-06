@@ -18,7 +18,7 @@ game.Level = me.Container.extend({
 
         // this.wanted = 0;
         this.timePassed = 0;
-        this.totalTime = 30 * 1000;
+        this.totalTime = game.parameters.levelTime * 1000;
 
         this.outfitDisplay = new game.OutfitDisplay(this.targetOutfit);
         me.game.world.addChild(this.outfitDisplay, 9999);
@@ -44,16 +44,18 @@ game.Level = me.Container.extend({
                 pedestrian.onCollide(this.player);
             }
         }
-        for (let i = 0; i < this.policemen.length; i++) {
-            let policeman = this.policemen[i];
-            if (policeman.isOffscreen()) {
-                this.removeChild(policeman);
-                this.policemen.splice(i, 1);
-                i--;
-                continue;
-            }
-            if (this.player.distanceTo(policeman) <= game.parameters.collisionDistance) {
-                policeman.onCollide(this.player);
+        if (!this.player.walkingToCenter) {
+            for (let i = 0; i < this.policemen.length; i++) {
+                let policeman = this.policemen[i];
+                if (policeman.isOffscreen()) {
+                    this.removeChild(policeman);
+                    this.policemen.splice(i, 1);
+                    i--;
+                    continue;
+                }
+                if (this.player.distanceTo(policeman) <= game.parameters.collisionDistance) {
+                    policeman.onCollide(this.player);
+                }
             }
         }
 
@@ -69,12 +71,11 @@ game.Level = me.Container.extend({
         if (this.policemanNumber < 1) {
             this.policemanNumber = 1;
         }
-        console.log(this.policemanNumber);
 
         // lose condition
         this.timePassed += dt;
         if (this.timePassed >= this.totalTime) {
-            me.state.current().gameOver();
+            me.state.change(me.state.GAMEOVER, false);
         }
         this.timeDisplay.updateTime(this.timePassed);
 
@@ -129,20 +130,23 @@ game.Level = me.Container.extend({
 
         // win condition
         if (hairDone && jacketDone && pantsDone) {
-            this.player.walkToCenter()
-            // me.state.current().nextLevel();
-            me.state.change(me.state.USER, this.number + 1);
-            // me.state.change(me.state.PLAY, this.number + 1);
+            this.player.walkToCenter();
+            for (pedestrian of this.pedestrians) {
+                pedestrian.walkOffscreen();
+            }
+            for (policeman of this.policemen) {
+                policeman.walkOffscreen();
+            }
         }
     },
 
-    addWanted: function(add) {
+    policemanWave: function(size) {
         // this.wanted += add;
         // if (this.wanted > 3) {
         //     this.wanted = 3;
         // }
         // this.policemanNumber = (this.wanted + 1) * 2;
-        this.policemanNumber += add;
+        this.policemanNumber += size;
         // this.wantedDisplay.updateWanted(this.wanted);
     }
 });

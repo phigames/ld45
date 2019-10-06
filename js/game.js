@@ -19,6 +19,7 @@ var game = {
     onloaded: function() {
         me.state.set(me.state.PLAY, new game.PlayStage());
         me.state.set(me.state.USER, new game.TransitionStage());
+        me.state.set(me.state.GAMEOVER, new game.GameOverStage());
         me.state.change(me.state.PLAY, 0);
 
         me.input.bindKey(me.input.KEY.LEFT, "left");
@@ -53,7 +54,9 @@ var game = {
         maxPlayerVelocity: 0.005,
         maxPedestrianVelocity: 0.002,
         policeVelocity: 0.05,
-        collisionDistance: 10
+        collisionDistance: 20,
+        levelTime: 60,
+        policemanWaveSize: 4
     },
 
 }

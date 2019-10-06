@@ -129,6 +129,7 @@ game.Policeman = game.Human.extend({
     onCollide: function(player) {
         if (this.jobdone != true && !(player.hair == null && player.jacket == null && player.pants == null)) {
             player.changeOutfit(null, null, null)
+            me.state.current().level.updateOutfit();
             this.jobdone = true;
             player.character.flicker(1000);
             // flicker(player, 3);
@@ -208,7 +209,7 @@ game.Pedestrian = game.Human.extend({
         }
         if (stolen > 0) {
             me.state.current().level.updateOutfit();
-            me.state.current().level.addWanted(stolen * 4);
+            me.state.current().level.policemanWave(stolen * game.parameters.policemanWaveSize);
         }
     }
 });
@@ -229,12 +230,10 @@ game.Player = game.Human.extend({
     update: function(dt) {
         if (this.walkingToCenter === true) {
             this.velocity = new me.Vector2d(193 - this.pos.x, 96-this.pos.y).normalize().scale(game.parameters.maxPlayerVelocity * dt)
-            console.log("walkingtocenter");
-            console.log(this.pos.x, this.pos.y)
             if (this.pos.x <= 194 && this.pos.x >= 192){
                 if (this.pos.y <= 97 && this.pos.y >= 95) {
                     this.velocity = new me.Vector2d(0, 0);
-                    me.state.change(me.state.USER, this.number + 1);
+                    me.state.change(me.state.USER, me.state.current().level.number + 1);
                 }
             }
         
