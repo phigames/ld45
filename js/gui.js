@@ -50,15 +50,16 @@ game.TimeDisplay = me.Container.extend({
         this._super(me.Container, "init", [game.width - 25, game.height / 2, 50, 120]);
         this.anchorPoint = {x: 0, y: 0};
 
-        this.addChild(new me.Sprite(0, 0, { image: "soundhour_background" }));
 
-        this.airY0 = -39;
-        this.airY1 = -15;
+        this.airY0 = -40;
+        this.airY1 = -16;
         this.sandY0 = 29;
         this.sandY1 = 5;
         this.airSprite = new me.Sprite(1, this.airY0, { image: "spickel_air" });
         this.sandSprite = new me.Sprite(1, this.sandY0, { image: "spickel_sand" });
+        this.addChild(new me.Sprite(0, 17, { image: "soundhour_background" }));
         this.addChild(this.sandSprite);
+        this.addChild(new me.Sprite(0, -17, { image: "soundhour_background" }));
         this.addChild(this.airSprite);
 
         this.addChild(new me.Sprite(0, 0, { image: "sider_sandhour" }));
