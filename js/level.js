@@ -80,8 +80,10 @@ game.Level = me.Container.extend({
         this.timeDisplay.updateTime(this.timePassed);
 
         this.sort();
+
+
         // win condition
-        if (this.pedestrianNumber == 0 && this.policeman == 0) {
+        if (this.pedestrians.length == 0 && this.policemen.length == 0) {
             me.state.change(me.state.USER, me.state.current().level.number + 1)
         }
         return true;
