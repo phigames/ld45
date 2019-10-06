@@ -33,6 +33,7 @@ var game = {
     width: 420,
     height: 256,
 
+    // TODO: level ordering
     levels: [
         {
             targetOutfit: "elvis"

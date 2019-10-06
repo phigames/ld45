@@ -2,7 +2,7 @@ game.PlayStage = me.Stage.extend({
 
     onResetEvent: function() {
         this.currentLevelIndex = 0;
-        this.currentLevel = new game.Level(game.levels[this.currentLevelIndex]);
+        this.currentLevel = new game.Level(game.levels[this.currentLevelIndex].targetOutfit);
         me.game.world.reset();
         me.game.world.addChild(this.currentLevel);
         // me.audio.play("test");

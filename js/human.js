@@ -2,8 +2,14 @@ game.Human = me.Container.extend({
     init: function(hair, jacket, pants) {
         this._super(me.Container, "init", [0, 0, 32, 64]);
         this.anchorPoint = {x: 0,y: 0};
-        this.changeOutfit(hair, jacket, pants)
+
         this.velocity = new me.Vector2d(0, 0);
+        this.walkingAnimationInterval = 200;
+        this.walkingAnimationTime = 0;
+        this.walkingAnimationLeftUp = false;
+
+        this.changeOutfit(hair, jacket, pants)
+        this.alwaysUpdate = true;
     },
 
     update: function(dt) {
@@ -14,6 +20,26 @@ game.Human = me.Container.extend({
         } else if (this.velocity.x > 0) {
             this.flipX(false);
         }
+
+        if (this.velocity.x != 0 || this.velocity.y != 0) {
+            this.walkingAnimationTime += dt;
+            if (this.walkingAnimationTime >= this.walkingAnimationInterval) {
+                this.walkingAnimationTime -= this.walkingAnimationInterval;
+                this.walkingAnimationLeftUp = !this.walkingAnimationLeftUp;
+                if (this.walkingAnimationLeftUp) {
+                    this.leftShoeSprite.pos.y = outfitCoords.shoes.left.y - 5;
+                    this.rightShoeSprite.pos.y = outfitCoords.shoes.right.y;
+                } else {
+                    this.leftShoeSprite.pos.y = outfitCoords.shoes.left.y;
+                    this.rightShoeSprite.pos.y = outfitCoords.shoes.right.y - 5;
+                }
+            }
+        } else {
+            this.walkingAnimationTime = this.walkingAnimationInterval;
+            this.leftShoeSprite.pos.y = outfitCoords.shoes.left.y;
+            this.rightShoeSprite.pos.y = outfitCoords.shoes.right.y;
+        }
+
         this.pos.z = this.pos.y + 100;
         return true;
     },
@@ -25,34 +51,36 @@ game.Human = me.Container.extend({
         this.pants = pants;
         this.character = new me.Sprite(0, 0, { image: "naked_RAW", anchorPoint: {x: 0, y: 0} });
         this.addChild(this.character)
+
         if (this.hair != null) {
             let coords = outfitCoords[hair].hair;
-            // this.hairSprite = new me.Sprite(coords.x, coords.y, { image: hair+"_hair", anchorPoint: {x: 0, y: 0}});
             this.addChild(new me.Sprite(coords.x, coords.y, { image: hair+"_hair", anchorPoint: {x: 0, y: 0}}))
-        } else { this.hairSprite = null; }
+        }
         if (this.jacket != null) {
             let coords = outfitCoords[jacket].jacket;
-            // this.jacketImage = me.loader.getImage(jacket + "_jacket");
-            // this.jacketCoords = coords;
             this.addChild(new me.Sprite(coords.x, coords.y, { image: jacket+"_jacket", anchorPoint: {x: 0, y: 0}}))
-        } else { this.jacketImage = null; }
+        }
         if (this.pants != null) {
             let coords = outfitCoords[pants].pants;
-            // this.pantsSprite = new me.Sprite(coords.x, coords.y, { image: pants+"_pants", anchorPoint: {x: 0, y: 0}});
             this.addChild(new me.Sprite(coords.x, coords.y, { image: pants+"_pants", anchorPoint: {x: 0, y: 0}}));
-        } else { this.pantsSprite = null; }
+        }
+
+        this.leftShoeSprite = new me.Sprite(outfitCoords.shoes.left.x, outfitCoords.shoes.left.y, { image: "shoe", anchorPoint: {x: 0, y: 0}});
+        this.rightShoeSprite = new me.Sprite(outfitCoords.shoes.right.x, outfitCoords.shoes.right.y, { image: "shoe", anchorPoint: {x: 0, y: 0}});
+        this.addChild(this.rightShoeSprite);
+        this.addChild(this.leftShoeSprite);
+    },
+
+    isOffscreen: function() {
+        return (
+            this.pos.x <= -32 || this.pos.x >= game.width ||
+            this.pos.y <= -64 || this.pos.y >= game.height
+        );
     },
 
     onCollide: function(player) {
 
-    },
-
-    // draw: function(renderer) {
-    //     this._super(me.Container, "draw", [renderer]);
-    //     if (this.jacketImage !== null) {
-    //         renderer.drawImage(this.jacketImage, this.jacketCoords.x, this.jacketCoords.y);
-    //     }
-    // }
+    }
 });
 
 
@@ -135,85 +163,42 @@ game.Player = game.Human.extend({
             this.pos.x = -16
         }
         if (this.pos.x >= game.width - 16) {
-            this.pos.x = game.width-17
+            this.pos.x = game.width - 17
         }
         if (this.pos.y < -32) {
             this.pos.y = -32
         }
         if (this.pos.y > game.height - 32) {
-            this.pos.y = game.height-33
+            this.pos.y = game.height - 33
         }
         return true;
     }
 
-            
-    //         this.renderable.flipX(true);
-    //         // update the default force
-    //         this.body.force.x = -this.body.maxVel.x;
-    //         // change to the walking animation
-    //         if (!this.renderable.isCurrentAnimation("walk")) {
-    //             this.renderable.setCurrentAnimation("walk");
-    //         }
-    //     }
-    // }
-
 });
 
 var outfitCoords = {
+    shoes: {
+        left: { x: 7, y: 58 },
+        right: { x: 17, y: 58 }
+    },
     elvis: {
-        hair: {
-            x: 7,
-            y: -3,
-        },
-        jacket: {
-            x: 0,
-            y: 16,
-        },
-        pants: {
-            x: 4,
-            y: 38,
-        }
+        hair: { x: 7, y: -3 },
+        jacket: { x: 0, y: 16 },
+        pants: { x: 4, y: 38 }
     },
     banquier: {
-        hair: {
-            x: 8,
-            y: -1,
-        },
-        jacket: {
-            x: 0,
-            y: 16,
-        },
-        pants: {
-            x: 7,
-            y: 38,
-        }
+        hair: { x: 8, y: -1 },
+        jacket: { x: 0, y: 16 },
+        pants: { x: 7, y: 38 }
     },
     wizard: {
-        hair: {
-            x: 5,
-            y: -10,
-        },
-        jacket: {
-            x: -2,
-            y: 12,
-        },
-        pants: {
-            x: 7,
-            y: 38,
-        }
+        hair: { x: 5, y: -10 },
+        jacket: { x: -2, y: 7 },
+        pants: { x: 7, y: 38 }
     },
     cop: {
-        hair: {
-            x: 8,
-            y: -4,
-        },
-        jacket: {
-            x: 0,
-            y: 16,
-        },
-        pants: {
-            x: 7,
-            y: 37,
-        }
+        hair: { x: 8, y: -4 },
+        jacket: { x: 0, y: 16 },
+        pants: { x: 7, y: 37 }
     }
 }
