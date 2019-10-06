@@ -89,7 +89,7 @@ game.Human = me.Container.extend({
     },
 
     onCollide: function(player) {
-
+        
     }
 });
 
@@ -105,7 +105,7 @@ game.Policeman = game.Human.extend({
     },
 
     onCollide: function(player) {
-        // TODO: remove clothes from player
+
     }
 });
 
@@ -142,7 +142,22 @@ game.Pedestrian = game.Human.extend({
        // }
         this.velocity = new me.Vector2d(Math.cos(this.angle), Math.sin(this.angle)).normalize().scale(game.parameters.maxPedestrianVelocity * dt)
         return true;
+        },
+
+    onCollide: function(player) {
+        if (me.input.isKeyPressed("steal_hair") && this.hair != null) {
+            player.changeOutfit(this.hair, player.jacket, player.pants);
+            this.changeOutfit(null, this.jacket, this.pants);
         }
+        if (me.input.isKeyPressed("steal_jacket") && this.jacket != null) {
+            player.changeOutfit(player.hair, this.jacket, player.pants);
+            this.changeOutfit(this.hair, null, this.pants);
+        }
+        if (me.input.isKeyPressed("steal_pants") && this.pants != null) {
+            player.changeOutfit(player.hair, player.jacket, this.pants)
+            this.changeOutfit(this.hair, this.jacket, null)
+        }
+    }
     });
 
 
