@@ -141,7 +141,9 @@ var pedestrianOutfits = [
     "elvis",
     "banquier",
     "wizard", 
-    "barca"
+    "barca",
+    "cowboy",
+    "swimmer"
 ];
 
 var pedestrianSpawnPoints = [
@@ -305,5 +307,14 @@ var outfitCoords = {
         hair: {x: 9,y: -2,},
         jacket: {x: 1,y: 16,},
         pants: {x: 7,y: 41,},
+    },
+    cowboy: {
+        hair: {x: 3,y: -4},
+        jacket: {x: 0,y: 13,},
+        pants: {x: 2,y: 37},
+    },
+    swimmer: {hair: {x: 7, y: -1},
+        jacket: {x: 8, y: 16},
+        pants: {x: 8, y: 35},
     }
 }
