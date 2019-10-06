@@ -99,9 +99,17 @@ game.Human = me.Container.extend({
 });
 
 
+var policemanSpawnPoints = [
+    {posX: -30, posY: 190}
+]
+
 game.Policeman = game.Human.extend({
-    init: function() {
+    init: function(playerX, playerY) {
         this._super(game.Human, "init", [ "cop", "cop", "cop" ]);
+        let rand = policemanSpawnPoints[Math.floor(Math.random() * policemanSpawnPoints.length)];
+        this.pos.x = rand.posX;
+        this.pos.y = rand.posY;
+        this.velocity = new me.Vector2d(playerX - this.pos.x, playerY - this.pos.y).normalize().scale(game.parameters.policeVelocity);
     },
 
     update: function(dt) {
@@ -118,7 +126,8 @@ game.Policeman = game.Human.extend({
 var pedestrianOutfits = [
     "elvis",
     "banquier",
-    "wizard"
+    "wizard", 
+    "barca"
 ];
 
 var pedestrianSpawnPoints = [
@@ -254,5 +263,10 @@ var outfitCoords = {
         hair: { x: 8, y: -4 },
         jacket: { x: 0, y: 16 },
         pants: { x: 7, y: 37 }
+    },
+    barca: {
+        hair: {x: 9,y: -2,},
+        jacket: {x: 1,y: 16,},
+        pants: {x: 7,y: 41,},
     }
 }

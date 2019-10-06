@@ -113,7 +113,7 @@ game.Level = me.Container.extend({
     },
 
     generatePoliceman: function() {
-        let policeman = new game.Policeman();
+        let policeman = new game.Policeman(this.player.pos.x, this.player.pos.y);
         this.policemen.push(policeman);
         this.addChild(policeman);
     },

@@ -51,6 +51,7 @@ var game = {
     parameters: {
         maxPlayerVelocity: 0.005,
         maxPedestrianVelocity: 0.002,
+        policeVelocity: 0.05,
         collisionDistance: 10
     }
 }
