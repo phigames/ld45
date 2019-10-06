@@ -129,14 +129,9 @@ game.Policeman = game.Human.extend({
     onCollide: function(player) {
         if (this.jobdone != true && !(player.hair == null && player.jacket == null && player.pants == null)) {
             player.changeOutfit(null, null, null)
-<<<<<<< HEAD
-            this.jobdone = true
-            player.character.flicker(1500)
-=======
             this.jobdone = true;
             player.character.flicker(1000);
             // flicker(player, 3);
->>>>>>> 5d2e36e4435800ae86e45d30870de47d0023d96f
         }
     }
 });
@@ -236,7 +231,8 @@ game.Player = game.Human.extend({
             console.log(this.pos.x, this.pos.y)
             if (this.pos.x <= 194 && this.pos.x >= 192){
                 if (this.pos.y <= 97 && this.pos.y >= 95) {
-                    this.velocity = new me.Vector2d(0, 0)
+                    this.velocity = new me.Vector2d(0, 0);
+                    me.state.change(me.state.USER, this.number + 1);
                 }
             }
         
