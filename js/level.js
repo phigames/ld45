@@ -129,13 +129,10 @@ game.Level = me.Container.extend({
 
         // win condition
         if (hairDone && jacketDone && pantsDone) {
-<<<<<<< HEAD
             this.player.walkToCenter()
             // me.state.current().nextLevel();
-=======
             me.state.change(me.state.USER, this.number + 1);
             // me.state.change(me.state.PLAY, this.number + 1);
->>>>>>> 5d2e36e4435800ae86e45d30870de47d0023d96f
         }
     },
 
