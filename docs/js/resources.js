@@ -10,6 +10,31 @@ game.resources = [
         "src": "res/bgm/"
     },
     {
+        "name": "caught_by_police",
+        "type": "audio",
+        "src": "res/sfx/"
+    },
+    {
+        "name": "game_over",
+        "type": "audio",
+        "src": "res/sfx/"
+    },
+    {
+        "name": "kleidungsstueck_geklaut",
+        "type": "audio",
+        "src": "res/sfx/"
+    },
+    {
+        "name": "won_a_level",
+        "type": "audio",
+        "src": "res/sfx/"
+    },
+    {
+        "name": "won_the_whole_game",
+        "type": "audio",
+        "src": "res/sfx/"
+    },
+    {
         "name": "banquier_hair",
         "type": "image",
         "src": "res/img/banquier_hair.png"
