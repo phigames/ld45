@@ -9,7 +9,7 @@ game.GameOverStage = me.Stage.extend({
             me.audio.play("won_the_whole_game");
             this.handler = me.event.subscribe(me.event.KEYDOWN, function (action, keyCode, edge) {
                 if (action === "space") {
-                    window.location = "https://ldjam.com/events/ludum-dare/45/$170508";
+                    window.location = "https://ldjam.com/events/ludum-dare/45/underdressed";
                 }
             });
         } else {
