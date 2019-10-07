@@ -1,10 +1,5 @@
 game.resources = [
     {
-        "name": "LD_1_minute",
-        "type": "audio",
-        "src": "res/bgm/"
-    },
-    {
         "name": "LD_boss_level",
         "type": "audio",
         "src": "res/bgm/"
