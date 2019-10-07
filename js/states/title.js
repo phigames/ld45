@@ -3,14 +3,14 @@ game.TitleStage = me.Stage.extend({
         me.game.world.reset();
         var titleSprite = new me.Sprite(0, 0, { image: "titlescreen", anchorPoint: { x: 0, y: 0 } });
         me.game.world.addChild(titleSprite);
-        me.input.registerPointerEvent("pointerdown", me.game.viewport, function() {
-            me.input.releasePointerEvent("pointerdown", me.game.viewport);
-            me.state.change(me.state.USER, 0, true);
-            return false;
+        this.handler = me.event.subscribe(me.event.KEYDOWN, function (action, keyCode, edge) {
+            if (action === "space") {
+                me.state.change(me.state.USER, 0, true);
+            }
         });
     },
 
     onDestroyEvent: function() {
-
+        me.event.unsubscribe(this.handler);
     },
 });

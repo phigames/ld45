@@ -95,7 +95,7 @@ game.Level = me.Container.extend({
                 }
             }
             if (allOffscreen) {
-                me.state.change(me.state.USER, this.number + 1)
+                me.state.change(me.state.SCORE, this.number);
             }
         }
         return true;
