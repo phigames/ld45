@@ -3,8 +3,7 @@ game.GameOverStage = me.Stage.extend({
         me.game.world.reset();
         var overlaySprite = new me.Sprite(game.width / 2, game.height / 2, { image: won ? "victory" : "gameover" });
         me.game.world.addChild(overlaySprite);
-        me.audio.stop("LD_minimal");
-        me.audio.stop("LD_boss_level");
+        me.audio.stop("LD_1_minute");
         if (won) {
             me.audio.play("won_the_whole_game");
             this.handler = me.event.subscribe(me.event.KEYDOWN, function (action, keyCode, edge) {
