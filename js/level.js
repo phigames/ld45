@@ -114,11 +114,18 @@ game.Level = me.Container.extend({
     },
 
     generatePedestrian: function() {
-        var hair = this._randomOutfit();
-        var jacket = this._randomOutfit();
-        while (jacket == hair) jacket = this._randomOutfit();
-        var pants = this._randomOutfit();
-        while (pants == hair || pants == jacket) pants = this._randomOutfit();
+        var firstPart = this._randomOutfit();
+        var secondPart = this._randomOutfit();
+        while (secondPart == firstPart) secondPart = this._randomOutfit();
+        var thirdPart = this._randomOutfit();
+        while (thirdPart == firstPart || thirdPart == secondPart) thirdPart = this._randomOutfit();
+
+        var outfit = [firstPart, secondPart, thirdPart];
+        if (Math.random < 0.5) {
+            var [hair, jacket, pants] = outfit;
+        } else {
+            var [pants, jacket, hair] = outfit;
+        }
         
         var pedestrian = new game.Pedestrian(hair, jacket, pants);
         this.pedestrians.push(pedestrian);
