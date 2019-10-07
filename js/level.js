@@ -15,6 +15,8 @@ game.Level = me.Container.extend({
         this.pedestrianNumber = 8;
         this.policemen = [];
         this.policemanNumber = 1;
+        this.policemanWaveSize = game.levels[number].policemanWaveSize;
+        this.policeVelocity = game.levels[number].policeVelocity;
 
         // this.wanted = 0;
         this.timePassed = 0;
@@ -130,7 +132,7 @@ game.Level = me.Container.extend({
             // policeman = new game.Policeman(game.width / 4 + Math.random() * game.width / 2,
                                         //    game.height / 4 + Math.random() * game.height / 2);
         // } else {
-            policeman = new game.Policeman(this.player.pos.x, this.player.pos.y);
+            policeman = new game.Policeman(this.player.pos.x, this.player.pos.y, this.policeVelocity);
         // }
         this.policemen.push(policeman);
         this.addChild(policeman);
@@ -155,13 +157,7 @@ game.Level = me.Container.extend({
     },
 
     policemanWave: function(size) {
-        // this.wanted += add;
-        // if (this.wanted > 3) {
-        //     this.wanted = 3;
-        // }
-        // this.policemanNumber = (this.wanted + 1) * 2;
-        this.policemanNumber += size;
-        // this.wantedDisplay.updateWanted(this.wanted);
+        this.policemanNumber += size * this.policemanWaveSize;
     },
 
     resetPolicemanWave: function() {

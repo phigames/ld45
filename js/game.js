@@ -43,41 +43,53 @@ var game = {
     levels: [
         {
             targetOutfit: "banquier",
-            targetOutfitProbability: 0.5
+            targetOutfitProbability: 0.5,
+            policemanWaveSize: 3,
+            policeVelocity: 0.04,
         },
         {
             targetOutfit: "elvis",
-            targetOutfitProbability: 0.4
+            targetOutfitProbability: 0.4,
+            policemanWaveSize: 4,
+            policeVelocity: 0.05,
         },
         {
             targetOutfit: "skater",
-            targetOutfitProbability: 0.4
+            targetOutfitProbability: 0.4,
+            policemanWaveSize: 5,
+            policeVelocity: 0.06,
         },
         {
             targetOutfit: "cowboy",
-            targetOutfitProbability: 0.3
+            targetOutfitProbability: 0.3,
+            policemanWaveSize: 6,
+            policeVelocity: 0.06,
         },
         {
             targetOutfit: "barca",
-            targetOutfitProbability: 0.3
+            targetOutfitProbability: 0.3,
+            policemanWaveSize: 6,
+            policeVelocity: 0.06,
         },
         {
             targetOutfit: "swimmer",
-            targetOutfitProbability: 0.3
+            targetOutfitProbability: 0.3,
+            policemanWaveSize: 6,
+            policeVelocity: 0.07,
         },
         {
             targetOutfit: "wizard",
-            targetOutfitProbability: 0.2
+            targetOutfitProbability: 0.2,
+            policemanWaveSize: 6,
+            policeVelocity: 0.08,
         },
     ],
 
     parameters: {
         maxPlayerVelocity: 0.005,
         maxPedestrianVelocity: 0.002,
-        policeVelocity: 0.05,
         collisionDistance: 20,
         levelTime: 60,
-        policemanWaveSize: 4
     },
 
 }

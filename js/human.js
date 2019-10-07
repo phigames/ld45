@@ -66,13 +66,13 @@ game.Human = me.Container.extend({
             var coords = outfitCoords[hair].hair;
             this.addChild(new me.Sprite(coords.x, coords.y, { image: hair+"_hair", anchorPoint: {x: 0, y: 0}}))
         }
-        if (this.jacket != null) {
-            var coords = outfitCoords[jacket].jacket;
-            this.addChild(new me.Sprite(coords.x, coords.y, { image: jacket+"_jacket", anchorPoint: {x: 0, y: 0}}))
-        }
         if (this.pants != null) {
             var coords = outfitCoords[pants].pants;
             this.addChild(new me.Sprite(coords.x, coords.y, { image: pants+"_pants", anchorPoint: {x: 0, y: 0}}));
+        }
+        if (this.jacket != null) {
+            var coords = outfitCoords[jacket].jacket;
+            this.addChild(new me.Sprite(coords.x, coords.y, { image: jacket+"_jacket", anchorPoint: {x: 0, y: 0}}))
         }
 
         this.leftShoeSprite = new me.Sprite(outfitCoords.shoes.left.x, outfitCoords.shoes.left.y, { image: "shoe", anchorPoint: {x: 0, y: 0}});
@@ -112,12 +112,12 @@ var policemanSpawnPoints = [
 ]
 
 game.Policeman = game.Human.extend({
-    init: function(playerX, playerY) {
+    init: function(playerX, playerY, velocity) {
         this._super(game.Human, "init", [ "cop", "cop", "cop" ]);
         var rand = policemanSpawnPoints[Math.floor(Math.random() * policemanSpawnPoints.length)];
         this.pos.x = rand.posX;
         this.pos.y = rand.posY;
-        this.velocity = new me.Vector2d(playerX - this.pos.x, playerY - this.pos.y).normalize().scale(game.parameters.policeVelocity);
+        this.velocity = new me.Vector2d(playerX - this.pos.x, playerY - this.pos.y).normalize().scale(velocity);
         this.jobdone = false
     },
 
@@ -219,7 +219,7 @@ game.Pedestrian = game.Human.extend({
         }
         if (stolen > 0) {
             me.state.current().level.updateOutfit();
-            me.state.current().level.policemanWave(stolen * game.parameters.policemanWaveSize);
+            me.state.current().level.policemanWave(stolen);
         }
     }
 });
