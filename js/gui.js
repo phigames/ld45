@@ -5,18 +5,18 @@ game.OutfitDisplay = me.Container.extend({
         this.addChild(new me.Sprite(0, 0, { image: "sider" }));
 
         this.hairContainer = new me.Container(0, -30);
-        this.hairContainer.addChild(new me.Sprite(6, 0, { image: outfit + "_hair" }));
-        this.hairContainer.addChild(new me.Sprite(-22, 0, { image: "shoe" }));
+        this.hairContainer.addChild(new me.Sprite(5, 0, { image: outfit + "_hair" }));
+        this.hairContainer.addChild(new me.Sprite(-18, 0, { image: "1" }));
         this.addChild(this.hairContainer);
 
         this.jacketContainer = new me.Container(0, 0);
-        this.jacketContainer.addChild(new me.Sprite(6, 0, { image: outfit + "_jacket" }));
-        this.jacketContainer.addChild(new me.Sprite(-22, 0, { image: "shoe" }));
+        this.jacketContainer.addChild(new me.Sprite(5, 0, { image: outfit + "_jacket" }));
+        this.jacketContainer.addChild(new me.Sprite(-18, 0, { image: "2" }));
         this.addChild(this.jacketContainer);
 
         this.pantsContainer = new me.Container(0, 30);
-        this.pantsContainer.addChild(new me.Sprite(6, 0, { image: outfit + "_pants" }));
-        this.pantsContainer.addChild(new me.Sprite(-22, 0, { image: "shoe" }));
+        this.pantsContainer.addChild(new me.Sprite(5, 0, { image: outfit + "_pants" }));
+        this.pantsContainer.addChild(new me.Sprite(-18, 0, { image: "3" }));
         this.addChild(this.pantsContainer);
     },
 

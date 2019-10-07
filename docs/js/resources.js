@@ -35,6 +35,21 @@ game.resources = [
         "src": "res/sfx/"
     },
     {
+        "name": "1",
+        "type": "image",
+        "src": "res/img/1.png"
+    },
+    {
+        "name": "2",
+        "type": "image",
+        "src": "res/img/2.png"
+    },
+    {
+        "name": "3",
+        "type": "image",
+        "src": "res/img/3.png"
+    },
+    {
         "name": "banquier_hair",
         "type": "image",
         "src": "res/img/banquier_hair.png"
