@@ -1,8 +1,6 @@
 game.PlayStage = me.Stage.extend({
 
     onResetEvent: function(levelNumber) {
-        if (levelNumber == 0) {
-        }
         me.game.world.reset();
         console.log("starting level ", levelNumber);
         this.level = new game.Level(levelNumber);

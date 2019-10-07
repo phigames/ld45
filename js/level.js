@@ -75,11 +75,13 @@ game.Level = me.Container.extend({
         }
 
         // lose condition
-        this.timePassed += dt;
-        if (this.timePassed >= this.totalTime) {
-            me.state.change(me.state.GAMEOVER, false);
+        if (!this.player.walkingToCenter) {
+            this.timePassed += dt;
+            if (this.timePassed >= this.totalTime) {
+                me.state.change(me.state.GAMEOVER, false);
+            }
+            this.timeDisplay.updateTime(this.timePassed);
         }
-        this.timeDisplay.updateTime(this.timePassed);
 
         this.sort();
 
@@ -120,11 +122,14 @@ game.Level = me.Container.extend({
         var thirdPart = this._randomOutfit();
         while (thirdPart == firstPart || thirdPart == secondPart) thirdPart = this._randomOutfit();
 
-        var outfit = [firstPart, secondPart, thirdPart];
-        if (Math.random < 0.5) {
-            var [hair, jacket, pants] = outfit;
+        if (Math.random() < 0.5) {
+            var hair = firstPart;
+            var jacket = secondPart;
+            var pants = thirdPart;
         } else {
-            var [pants, jacket, hair] = outfit;
+            var hair = thirdPart;
+            var jacket = secondPart;
+            var pants = firstPart;
         }
         
         var pedestrian = new game.Pedestrian(hair, jacket, pants);
