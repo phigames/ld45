@@ -90,7 +90,7 @@ var game = {
         maxPlayerVelocity: 0.005,
         maxPedestrianVelocity: 0.002,
         collisionDistance: 20,
-        levelTime: 60,
+        levelTime: 60.5,
     },
 
 }
