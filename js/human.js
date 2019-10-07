@@ -138,6 +138,7 @@ game.Policeman = game.Human.extend({
             this.jobdone = true;
             player.character.flicker(1000);
             // flicker(player, 3);
+            me.audio.play("caught_by_police");
         }
     }
 });
@@ -202,24 +203,23 @@ game.Pedestrian = game.Human.extend({
         if (me.input.isKeyPressed("steal_hair") && this.hair != null) {
             player.changeOutfit(this.hair, player.jacket, player.pants);
             this.changeOutfit(null, this.jacket, this.pants, true);
-            this.walkOffscreen();
             stolen++;
         }
         if (me.input.isKeyPressed("steal_jacket") && this.jacket != null) {
             player.changeOutfit(player.hair, this.jacket, player.pants);
             this.changeOutfit(this.hair, null, this.pants, true);
-            this.walkOffscreen();
             stolen++;
         }
         if (me.input.isKeyPressed("steal_pants") && this.pants != null) {
             player.changeOutfit(player.hair, player.jacket, this.pants)
             this.changeOutfit(this.hair, this.jacket, null, true);
-            this.walkOffscreen();
             stolen++;
         }
         if (stolen > 0) {
+            this.walkOffscreen();
             me.state.current().level.updateOutfit();
             me.state.current().level.policemanWave(stolen);
+            me.audio.play("kleidungsstueck_geklaut");
         }
     }
 });

@@ -153,6 +153,9 @@ game.Level = me.Container.extend({
             for (policeman in this.policemen) {
                 this.policemen[policeman].walkOffscreen();
             }
+            me.audio.stop("LD_minimal");
+            me.audio.stop("LD_boss_level");
+            me.audio.play("won_a_level");
         }
     },
 
