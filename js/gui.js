@@ -3,41 +3,50 @@ game.OutfitDisplay = me.Container.extend({
         this._super(me.Container, "init", [25, game.height / 2, 50, 120]);
         this.anchorPoint = {x: 0, y: 0};
         this.addChild(new me.Sprite(0, 0, { image: "sider" }));
-        this.hairSprite = new me.Sprite(0, -30, { image: outfit + "_hair" });
-        this.addChild(this.hairSprite);
-        this.jacketSprite = new me.Sprite(0, 0, { image: outfit + "_jacket" });
-        this.addChild(this.jacketSprite);
-        this.pantsSprite = new me.Sprite(0, 30, { image: outfit + "_pants" });
-        this.addChild(this.pantsSprite);
+
+        this.hairContainer = new me.Container(0, -30);
+        this.hairContainer.addChild(new me.Sprite(6, 0, { image: outfit + "_hair" }));
+        this.hairContainer.addChild(new me.Sprite(-22, 0, { image: "shoe" }));
+        this.addChild(this.hairContainer);
+
+        this.jacketContainer = new me.Container(0, 0);
+        this.jacketContainer.addChild(new me.Sprite(6, 0, { image: outfit + "_jacket" }));
+        this.jacketContainer.addChild(new me.Sprite(-22, 0, { image: "shoe" }));
+        this.addChild(this.jacketContainer);
+
+        this.pantsContainer = new me.Container(0, 30);
+        this.pantsContainer.addChild(new me.Sprite(6, 0, { image: outfit + "_pants" }));
+        this.pantsContainer.addChild(new me.Sprite(-22, 0, { image: "shoe" }));
+        this.addChild(this.pantsContainer);
     },
 
     updateOutfit: function(hairDone, jacketDone, pantsDone) {
-        function tweenOut(sprite) {
-            new me.Tween(sprite.pos)
-                .to({x: -50}, 300)
+        function tweenOut(obj) {
+            new me.Tween(obj.pos)
+                .to({x: -50}, 200)
                 .easing(me.Tween.Easing.Quadratic.In)
                 .start();
         }
-        function tweenIn(sprite) {
-            new me.Tween(sprite.pos)
-                .to({x: 0}, 300)
+        function tweenIn(obj) {
+            new me.Tween(obj.pos)
+                .to({x: 0}, 200)
                 .easing(me.Tween.Easing.Quadratic.Out)
                 .start();
         }
         if (hairDone) {
-            tweenOut(this.hairSprite);
+            tweenOut(this.hairContainer);
         } else {
-            tweenIn(this.hairSprite);
+            tweenIn(this.hairContainer);
         }
         if (jacketDone) {
-            tweenOut(this.jacketSprite);
+            tweenOut(this.jacketContainer);
         } else {
-            tweenIn(this.jacketSprite);
+            tweenIn(this.jacketContainer);
         }
         if (pantsDone) {
-            tweenOut(this.pantsSprite);
+            tweenOut(this.pantsContainer);
         } else {
-            tweenIn(this.pantsSprite);
+            tweenIn(this.pantsContainer);
         }
     }
 });

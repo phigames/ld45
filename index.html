@@ -1,32 +1,10 @@
 <html>
     <head>
         <title>Underdressed</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="index.css">
-        <script type="text/javascript">
-            var _controlsOpen = true;
-            function _toggleControls() {
-                _controlsOpen = !_controlsOpen;
-                if (_controlsOpen) {
-                    document.getElementById("controls").className = null;
-                    document.getElementById("controls-button").className = "fa fa-chevron-right";
-                } else {
-                    document.getElementById("controls").className = "closed";
-                    document.getElementById("controls-button").className = "fa fa-chevron-left";
-                }
-            }
-        </script>
     </head>
     <body>
         <div id="screen"></div>
-        <!--div id="controls">
-            <i id="controls-button" class="fa fa-chevron-right" onclick="_toggleControls()"></i>
-            <b>Controls:</b> <br/>
-            [arrows] / [WASD] = move <br/>
-            [1] = steal hat <br/>
-            [2] = steal jacket <br/>
-            [3] = steal pants <br/>
-        </div-->
         <!-- build:js js/app.min.js -->
         <script type="text/javascript" src="lib/melonjs.js"></script>
         <script type="text/javascript" src="js/game.js"></script>
