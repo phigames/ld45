@@ -12,7 +12,7 @@ var game = {
             return;
         }
 
-        me.audio.init("ogg");
+        me.audio.init("ogg,mp3");
         me.loader.preload(game.resources, this.onloaded.bind(this))
     },
 
